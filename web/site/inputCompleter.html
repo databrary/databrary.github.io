@@ -1,7 +1,0 @@
-<input type="text" ng-model="value" ng-change="search()" ng-model-options="{debounce: debounce}" ng-attr-placeholder="{{placeholder}}" ng-pattern="pattern" key-enter="enter($event)" key-down="select(+1)" key-up="select(-1)" key-tab="enter($event)" autocomplete="off"/>
-<ul ng-if="choices.length" class="flat input-completer-choices">
-  <li ng-repeat="c in choices" class="input-completer-choice" ng-class="{default: c.default, selected: selected === $index}">
-    <a ng-if="::c.select" href="" ng-click="choose(c, $event)" ng-bind="::c.text + c.email"></a>
-    <span ng-if="::!c.select" ng-bind="::c.text + c.email"></span>
-  </li>
-</ul>
