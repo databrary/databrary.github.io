@@ -1,0 +1,112 @@
+// styles
+
+button, .button
+  display inline-block
+  line-height 29px
+  border-width 1px
+  padding-height 0
+  padding-width f2
+  border-radius b8
+  color black
+  margin-right f8
+  button-color neutral
+  box-shadow 0 b8 b8 -b8 black
+
+  &.white
+    button-color neutral
+    background-color white
+
+  &.red
+    button-color red
+
+  &.orange
+    button-color orange
+
+  &.yellow
+    button-color yellow
+
+  &.green
+    button-color green
+
+  &.blue
+    button-color blue
+
+  &.purple
+    button-color purple
+
+  &.selected, &:disabled, &.disabled
+    box-shadow none
+    cursor default
+
+  &:disabled:not(.selected), &.disabled
+    disabled-background = mix(gray, white, 55%)
+    border 1px solid gray
+    background disabled-background
+    color mix(black, gray, 90%)
+
+    &:hover
+      background disabled-background
+
+    &:active
+      background disabled-background
+
+  &.mini
+    border-padding-height 1px 1px
+    padding-width f4
+    font-size b2
+    line-height f1
+    span.icon
+      height 13px
+      width 13px
+      background-size contain
+
+  &.pull
+    position absolute
+    top b8
+    right 0
+
+  &.icon,
+  &.icon:hover
+    background-position center
+    background-repeat no-repeat
+    size b1
+    padding-height f4
+
+  &.icon-text
+    display initial
+    white-space nowrap
+    .icon
+      margin-right b8
+    &.mini > .icon
+      vertical-align middle
+    &:not(.mini) > .icon
+      vertical-align sub
+
+// link button
+
+a.button
+  &:link, &.link,
+  &:visited, &.visited,
+  &:hover, &.hover,
+  &:active, &.active
+    color black
+
+// button link
+
+button.link
+  border none
+  background inherit
+  display inline
+  padding 0
+  margin 0
+  transition transition
+  link-color green
+  font inherit
+  outline none
+  outline-offset 0
+  text-shadow none
+  box-shadow none
+  border-radius 0
+
+.button,.clickable
+  cursor pointer

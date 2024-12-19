@@ -1,0 +1,109 @@
+// mixins
+
+message-color(color)
+  background-color mix(color, white, 25%)
+  border-color mix(color, pale, 25%)
+  color mix(color, dark, 25%)
+
+  a
+    &:link, &.link,
+    &:visited, &.visited
+      color mix(color, black, 75%)
+
+    &:hover, &.hover
+      color mix(color, gray, 75%)
+
+    &:active, &.active
+      color mix(color, pale, 75%)
+
+// styles
+
+.messages
+  display block
+  margin-bottom f1
+
+  position fixed
+  z-index 850
+  top b1*toolbarheight //toolbar
+  width 100%
+  margin-bottom 0
+  &.sandbox
+    top b1*(toolbarheight+sandboxheight) //sandbox+toolbar
+
+  .message
+    box-shadow box-shadow-def
+    border-width 0
+    border-radius 0
+    margin-bottom 0
+  .message-tutorial
+    border-width b4
+
+.message
+  min-height 1.5
+  background-color pale
+  color gray
+  position relative
+  opacity .95
+  margin-bottom f2
+  border b12 solid gray
+  border-radius b3
+
+  &:last-child
+    margin-bottom 0
+
+.message-title
+  font-size 1.2
+  line-height 1.4
+
+.message-content
+  padding-height f4
+  padding-right b4
+
+  p
+  dl
+    margin-bottom f4
+
+  dl
+    &:last-child
+      margin-bottom 0
+
+.message-close
+  size b1
+  margin-height f4
+  float right
+  opacity f2
+
+.message-next
+  margin-bottom b2
+
+.message-tutorial
+  background-color white
+  border-style solid
+  border-color orange52
+  color black
+
+.message-red
+  message-color red
+
+.message-orange
+  message-color orange
+
+.message-yellow
+  message-color yellow
+
+.message-green
+  message-color green
+
+.message-blue
+  message-color blue
+
+.message-purple
+  message-color purple
+
+.message-neutral
+  message-color neutral
+
+.message-dark
+  message-color orange
+  color dark13
+  background-color orange52

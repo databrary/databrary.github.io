@@ -1,0 +1,19 @@
+<div class="download-popup">
+  <span ng-click="close()" class="button icon close"></span>
+
+  <div class="popup-file-info">
+    <h4>
+      <span>Exported data from </span>
+      <a ng-href="{{::volume.route()}}" ng-bind="::volume.name"></a>
+    </h4>
+  </div>
+
+  <div class="popup-cite" ng-if="::volume">
+    <cite-volume></cite-volume>
+  </div>
+  <div class="popup-classification"></div>
+  <p><s message="download.warning"></s></p>
+  <a ng-href="{{::volume.csvRoute(false)}}" class=" button green" target="_self">
+    <span class="download icon"></span><span>Download CSV</span>
+  </a>
+</div>

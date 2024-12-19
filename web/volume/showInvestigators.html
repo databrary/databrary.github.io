@@ -1,0 +1,9 @@
+<div ng-if="::investigators.length" class="row">
+  <div frame frame-title="volume.{{::title}}.title" id="frame-{{::title}}" fold class="show-investigators">
+    <div ng-repeat="investigator in ::investigators" ng-init="party = investigator.party">
+      <div class="col-desktop-7 col-tablet-9 col-mobile-6">
+        <portrait tooltip="'access.'+page.constants.permission[investigator.individual] | message:party.name"></portrait>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<ng-form name="volumeEditForm">
+<article class="view volume-edit-view">
+  <div class="wrap">
+    <div class="row">
+      <hgroup class="col" ng-if="::!volume">
+        <h1 class="view-context">Create</h1>
+        <h2 class="view-title">New Volume</h2>
+      </hgroup>
+
+      <hgroup class="col" ng-if="::volume">
+        <h1 class="view-context">Manage volume</h1>
+        <h2 class="view-title">
+          <span ng-bind="volume.displayName"></span>
+          <div class="view-title-buttons inline-block">
+            <a ng-href="{{::volume.route()}}" class="button white icon view-icon"></a>
+            <a href="" class="button selected green icon edit"></a>
+            <a ng-href="{{::page.router.volumeActivity([volume.id])}}" class="button mini white view-title-text">Volume history</a>
+          </div>
+        </h2>
+      </hgroup>
+
+      <div class="col" ng-if="::!(volume || owners.length)">
+        You must be (or be granted management privledges by) an authorized investigator in order to create volumes. 
+        If you would like to begin contributing data while your authorization is still pending, please <a href="mailto:help@databrary.org">contact us</a>.
+      </div>
+
+      <div class="col" ng-if="::!!(volume || owners.length)">
+        <wizard name="volume-edit">
+
+          <volume-meter volume="volume">
+          </volume-meter>
+
+          <wizard-page name="overview">
+            <volume-edit-overview-form></volume-edit-overview-form>
+          </wizard-page>
+
+          <wizard-page name="access" wizard-disabled="!volume.checkPermission(page.permission.ADMIN)">
+            <volume-edit-access-form></volume-edit-access-form>
+          </wizard-page>
+
+          <wizard-page name="design" wizard-disabled="!volume">
+            <volume-design></volume-design>
+          </wizard-page>
+
+          <wizard-page name="data" wizard-disabled="!volume">
+            <spreadsheet edit></spreadsheet>
+          </wizard-page>
+
+          <wizard-page name="links" wizard-disabled="!volume">
+            <volume-edit-links-form></volume-edit-links-form>
+          </wizard-page>
+
+          <wizard-page name="funding" wizard-disabled="!volume">
+            <volume-edit-funding-form></volume-edit-funding-form>
+          </wizard-page>
+        </wizard>
+      </div>
+    </div>
+  </div>
+</article>
+</ng-form>

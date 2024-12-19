@@ -1,0 +1,140 @@
+<div ng-if="::editing" class="div-grey">Changes are saved automatically.</div>
+<p ng-if="::editing">See our <a href="/asset/formats">list of accepted file types</a>.</p>
+<ng-form name="form">
+<div class="spreadsheet-dynamic-info" ng-if="::editing">
+  <a href="" ng-click="showConsents=false" ng-show="showConsents">
+    Hide legend of session release levels
+  </a>
+  <a href="" ng-click="showConsents=true" ng-hide="showConsents">
+    Show legend of session release levels
+  </a>
+  <ul class="release-legend flat margin-vertical" ng-show="showConsents">
+    <li ng-repeat="c in ::page.constants.releases">
+      <span class="icon release" ng-class="::page.constants.release[c]"></span>
+      <span message="release.{{::page.constants.release[c]}}.title"></span>: 
+      <span message="release.{{::page.constants.release[c]}}.description"></span>
+    </li>
+  </ul>
+</div>
+
+<div ng-if="::!editing" class="spreadsheet-report-manage">
+  <label for="reportselect" class="accessible-hidden">select report</label>
+  <select id="reportselect" ng-options="k as k for (k,s) in volume.state" ng-model="state.name" ng-change="state.restore()" class="width-auto spreadsheet-pivot-part">
+    <option value=''>Show saved display mode...</option>
+  </select>
+  <wbr>
+</div>
+
+<div ng-if="::!editing">
+  <div class="spreadsheet-dynamic-section">
+    <a ng-if="!pivot.active" ng-click="pivot.show()"><b>Show summary</b></a>
+    <a ng-if="pivot.active" ng-click="pivot.hide()"><b>Hide summary</b></a>
+    <div class="small reminder foot-2">
+      <span ng-if="!pivot.active">You can use this table to view aggregate information about participant permissions, demographics, and other data</span>
+      <span ng-if="pivot.active">Summarize by dragging fields of interest between the shaded boxes</span>
+    </div>
+    <volume-pivot ng-hide="!pivot.active"></volume-pivot>
+  </div>
+  <slot-filter></slot-filter>
+</div>
+
+<div class="spreadsheet-dynamic-section" ng-if="::editing && views.length > 1">
+  <div class="spreadsheet-dynamic-info">
+    <a href="" ng-click="showConsents=false" ng-show="showConsents">
+      <span class="icon question-mark spreadsheet-help" role="img" aria-label="question mark icon to hide content"></span>
+    </a>
+    <a href="" ng-click="showConsents=true" ng-hide="showConsents">
+      <span class="icon question-mark spreadsheet-help" role="img" aria-label="question mark icon to show content"></span>
+    </a>
+    <video controls="" preload="metadata" seek="clip" style="max-width:91%;margin:2%;" ng-show="showConsents" class="margin-vertical">
+      <source ng-src="https://nyu.databrary.org/slot/27587/0,183810/asset/122478/download?inline=true" type="video/mp4" src="https://nyu.databrary.org/slot/27587/0,183810/asset/122478/download?inline=true">
+    </video>
+  </div>
+  <div class="inline-block spreadsheet-switch-view">
+    Summarize by: &nbsp;
+    <ul class="flat spreadsheet-tab-options">
+      <li ng-repeat="c in views track by c.id" ng-click="setKey(c.id)" ng-class="c.name == key.name ? 'spreadsheet-tab-option clickable selected': 'spreadsheet-tab-option clickable'">
+        <span ng-bind="::c.name"></span>
+      </li>
+    </ul>
+  </div>
+  <div class="spreadsheet-metadata" ng-if="filter.key === 1">
+    <div ng-if="volume.selected_mapping.length !== volume.suggested_mapping.length || skiptrue" class="error margin-top">
+      We were unable to match the data in your .csv file to the appropriate Databrary fields. Please return to the Design Spreadsheet tab and be sure that your .csv includes all of the fields you selected, and is labeled and formatted appropriately.
+    </div>
+    <metadata-form></metadata-form>
+    <metadata-match-form ng-model="data"></metadata-match-form>
+  </div>
+  <div class="small reminder top-2" ng-class="'margin' + filter.key">
+    <span ng-if="!anyGlobal">You can view your data aggregated by participant, task, context...whatever options you have selected in the Design Spreadsheet tab.</span>
+    <span ng-if="anyGlobal">Some categories are {{showGlobal ? 'shown': 'hidden'}}. <button class="link" ng-click="showHideGlobal()">Click to {{showGlobal ? 'hide all' : 'show all'}}.</button> </span><br>
+  </div>
+</div>
+
+<div class="spreadsheet-dynamic-section" style="height:120px;" ng-if="!editing">
+    <div class="inline-block spreadsheet-switch-view" style="bottom:20px;">
+      Summarize by: 
+      <ul class="flat spreadsheet-tab-options" ng-if="!editing">
+        <li ng-repeat="c in views track by c.id" ng-click="setKey(c.id)" ng-class="c.name == key.name ? 'spreadsheet-tab-option clickable selected': 'spreadsheet-tab-option clickable'">
+          <span ng-bind="::c.name"></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+<div class="spreadsheet" ng-class="::{'edit': editing, 'view': !editing}">
+  <table class="spreadsheet-table" ng-click="click($event)">
+    <colgroup ng-repeat="g in groups track by g.category.id">
+      <col ng-repeat="metric in g.metrics track by metric.id" ng-class="[g.category.name, metric.name]"/>
+    </colgroup>
+    <thead>
+      <tr class="spreadsheet-head-groups">
+        <th class="metric-col" ng-repeat="col in groups track by col.category.id" id="{{::id}}-category_{{::col.category.id}}" colspan="{{col.metrics.length}}" ng-class="::'col'+col.category.id">
+          <span class="spreadsheet-tab-name" ng-bind="::col.category.name" tooltip="col.category.description" ng-click="clickHeader(col)"></span>
+        </th>
+        <th class="spreadsheet-col-manage" ng-if="::editing" ng-click="activateStep(step.design)">
+          <span class="icon settings clickable" tooltip="'spreadsheet.manage' | message"></span>
+        </th>
+      </tr>
+      <tr class="spreadsheet-head-metrics">
+        <th class="clickable" ng-repeat="col in cols" id="{{::id}}-metric_{{::$index}}" ng-click="clickHeader(col)" ng-class="colClasses(col)" ng-bind="col.metric.name" tooltip="col.metric.description"></th>
+      </tr>
+    </thead>
+    <tbody class="spreadsheet-tbody" id="{{::id}}">
+    </tbody>
+    <tfoot>
+      <tr ng-if="more">
+        <td colspan="{{cols.length}}" class="null" ng-click="unlimit()" ng-bind="'spreadsheet.unlimit' | message:more"></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<div ng-if="::volume.checkPermission(page.permission.EDIT) && !editing" class="spreadsheet-dynamic-section">
+  <div class="foot-2">
+  <b>Save current display mode </b>
+  <span class="small reminder">This will replace any previously saved versions with the same name</span>
+  </div>
+  <label for="name-display" class="accessible-hidden">name the current display</label>
+  <input id="name-display" type="text" name="state" ng-model="state.name" ng-maxlength="64" class="width-auto" placeholder="Name display mode..." /><wbr>
+  <span class="spreadsheet-pivot-part" tooltip="'Make this display mode available to anyone with access to the volume, rather than only to other editors'">
+    <input id="make-public" type="checkbox" name="public" ng-model="state.public" class="width-auto"/>
+    <label for="make-public" class="option">Make public</label>
+  </span>
+  <span class="spreadsheet-pivot-part">
+    <button ng-click="state.save()">Save</button>
+    <button ng-click="state.delete()">
+      <span class="icon trash2" role="img" aria-label="delete icon"></span>
+      Delete
+    </button>
+  </span>
+</div>
+
+<div ng-if="::!editing" ng-show="key.id === 'slot' && count" class="spreadsheet-options">
+  <span class="icon download"></span>
+  <a ng-href="{{::volume.csvRoute()}}">Export all as CSV</a> | 
+  <a ng-href="{{::page.router.volumeDescription([volume.id])}}" class="download">Download all folders as zip</a>
+  <span ng-show="filter.count && filter.count < count"> | <a ng-click="zip($event)" class="download">Download selected folders ({{filter.count}} omitted) as zip</a></span>
+</div>
+
+</ng-form>

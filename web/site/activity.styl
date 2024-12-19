@@ -1,0 +1,75 @@
+.activity
+  padding-left 0
+.activity > li
+  padding b3
+  vertical-align middle
+  line-height 28px
+  &:nth-child(even)
+    background-color white
+  &:nth-child(odd)
+    background-color neutral51
+
+  img
+    margin-right b8
+    max-height 56px
+
+  dl > dt, dl > dd
+    font-size b2
+    span.icon
+      height 16px
+      vertical-align text-top
+      & .release
+        min-width initial
+
+  dl
+    margin b8 0 0 0
+    @media screen and (max-width: grid-tablet-width)
+      display block
+
+  dt
+    text-indent b2
+    display inline-block
+
+  dd
+    display inline
+    margin-width b8
+    & > div > p
+      line-height initial
+      margin-bottom b8
+
+  a.download.button, span.download-disabled.button
+    vertical-align text-top
+    padding 0
+    size 22px 20px
+    margin-width b8
+  a.download.button:not(:hover)
+    background-color white
+
+.activity-timestamp
+  float right
+  font-size b2
+
+.activity-old
+  text-decoration line-through
+  background-color red51
+  padding-width b3
+  border-radius b8
+  margin-width b8
+
+.activity-new
+  background-color green51
+  padding-width b3
+  border-radius b8
+  margin-width b8
+
+.activity-highlight
+  padding-width b8
+  border-width 0
+  border-bottom-width b8
+  border-style solid
+
+.activity-change-title
+  text-transform lowercase
+  &:before
+    content: '\2022'
+

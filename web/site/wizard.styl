@@ -1,0 +1,101 @@
+// styles
+
+.wizard-list
+  ul
+    @media screen and (min-width:grid-mobile-width+1)
+      margin 0
+      border-right 1px solid neutral12
+      padding-left 0
+      padding-top f4
+      padding-bottom 2
+    @media screen and (max-width:grid-mobile-width)
+      margin-left -2.7%
+      margin-right -2.7%
+      padding 0
+      margin-bottom 0
+
+  li:not(.unstyled)
+    position relative
+    background-color white
+    transition transition
+    padding f4 f2 f4 f2
+    @media screen and (min-width:grid-mobile-width+1)
+      border 1px solid pale
+      border-right-width 0
+      border-radius b4 0 0 b4
+      margin-bottom f8
+      margin-left f2
+    @media screen and (max-width:grid-mobile-width)
+      border 1px solid pale
+      border-right-width 0
+      border-left-width 0
+      border-bottom-width 0
+      &:last-of-type
+        border-bottom-width 1px
+
+    &.active
+      @media screen and (min-width:grid-mobile-width+1)
+        margin-left 0
+        padding-right f1
+        margin-right -1px
+        border 1px solid neutral12
+        border-right-width 0
+      @media screen and (max-width:grid-mobile-width)
+        background-color green52
+        padding-left b23
+        border-left b8 solid green53
+
+    &:hover:not(.active)
+    &:hover:not(.blocked)
+      @media screen and (min-width:grid-mobile-width+1)
+        margin-left 0
+        padding-right f1
+      @media screen and (max-width:grid-mobile-width)
+        background-color neutral51
+
+    &.error
+      background-color red51
+
+    &.incomplete.active
+      @media screen and (max-width:grid-mobile-width)
+        border-left b8 solid green53
+
+    &.blocked
+      background-color mix(pale, white, 50%)
+      color gray
+
+      &:hover
+        @media screen and (min-width:grid-mobile-width+1)
+          margin-left f2
+          padding-right f2
+
+        .wizard-list-name
+          text-decoration none
+
+    &.complete
+      &.blocked
+        background-color green51
+
+
+.wizard-list-name
+  font-size f90
+  @media screen and (max-width: 700px)
+    font-size f80
+
+.wizard-list-description
+  margin-bottom f6
+  text-align left
+  font-line f34 f34
+  @media screen and (max-width: 700px)
+    font-line f23 f23
+
+.wizard-step-instructions
+  padding-bottom 1
+  &:empty
+    display none
+  p:last-child
+    margin-bottom 0px
+
+.wizard-step-header
+  margin-top 0
+  margin-bottom 24px

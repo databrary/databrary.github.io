@@ -1,0 +1,21 @@
+<div ng-if="!notifications">
+  Loading...
+</div>
+<div ng-if="::notifications" class="notification-items-container">
+  <div class="notifications-header-section">
+    <div class="small notification-actions">
+      <button ng-click="deleteAll()" class="link">Remove all</button>
+      <span> |</span>
+      <a ng-href="{{::party.editRoute('notifications')}}" ng-click="settings()" class="icon settings"></a>
+    </div>
+    <div class="small b notifications-header">Notifications</div>
+  </div>
+  <ul class="flat striped notification-items">
+    <li ng-if="::!notifications.length" class="notification-item small i">No notifications</li>
+    <li ng-repeat="n in ::notifications" ng-if="!n.deleted" id="notification-{{::n.id}}" class="notification-item small">
+      <a ng-if="::deletable(n)" href="" ng-click="delete(n)" class="icon trash clickable" tooltip="'Remove this notification'"></a>
+      <span ng-bind-html="::n.html"></span><br>
+      <span class="date-time"><time datetime="{{::n.time | date:'yyyy-MM-dd HH:mm:ss Z'}}" ng-bind="::n.time | date:'short'"></time></span>
+    </li>
+  </ul>
+</div>

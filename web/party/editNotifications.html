@@ -1,0 +1,11 @@
+<ng-form name="partyEditNotificationsForm">
+  <div ng-repeat = "nl in ::notifications" class="col">
+    <span ng-bind="::nl.name"></span>
+    <ul class="striped flat edit-notifications-items col">
+      <li ng-repeat="n in ::nl.subgroup" class="col small">
+        <div ng-bind="::n.name" class="col-desktop-11 col-tablet-6 col-mobile-6"></div>
+        <select name="delivery" ng-model="n.delivery" ng-options="d as delivery[d] for d in ::n.options" ng-change="save(n)" class="col-desktop-4 col-tablet-3 col-mobile-6"></select>
+      </li>
+    </ul>
+  </div>
+</ng-form>

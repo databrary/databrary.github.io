@@ -1,0 +1,215 @@
+// STYLES
+
+.icon
+  display inline-block
+  position relative
+  background-color transparent
+  background-repeat no-repeat
+  background-position center
+  width b23+1px
+  height b23
+  transition transition
+  background-size contain
+  //clickable
+  &.clickable:hover
+    opacity 0.4
+  // png's
+  &.session,
+  &.jump,
+  &.trash,
+  &.trash2,
+  &.sort
+    background-size initial
+  &.volume
+    size b1
+  &.session
+    height b23
+    width b23+b8
+  &.release
+    min-width 28px
+
+  &.add
+    background-image url('/web/icons/add.svg')
+  &.activity
+    background-image url('/web/icons/activity.svg')
+
+  &.backward
+    background-image url('/web/icons/backarrow.svg')
+  &.forward
+    background-image url('/web/icons/fwdarrow.svg')
+
+  &.bullet
+    background-image url('/web/icons/bullet.svg')
+
+  &.contact
+    background-image url('/web/icons/contact.svg')
+
+  &.close
+    background-image url('/web/icons/close.svg')
+
+  &.done
+    background-image url('/web/icons/done.svg')
+  &.done-not
+    background-image url('/web/icons/done-not.svg')
+
+  &.expand
+    background-image url('/web/icons/expand.svg')
+  &.expanded
+    background-image url('/web/icons/minimize.svg')
+
+  &.list
+    background-image url('/web/icons/list.svg')
+  
+  &.question-mark
+    background-image url('/web/icons/question-mark.svg')
+
+  &.release.UNRELEASED
+    background-image url('/web/icons/release/unknown.svg')
+
+  &.release.PRIVATE
+    background-image url('/web/icons/release/private.svg')
+
+  &.release.SHARED
+    background-image url('/web/icons/release/shared.svg')
+    margin-right 3px
+    margin-left -3px
+
+  &.release.EXCERPTS
+    background-image url('/web/icons/release/excerpts.svg')
+    margin-right 3px
+    margin-left -3px
+
+  &.release.PUBLIC
+    background-image url('/web/icons/release/public.svg')
+
+  &.session
+    background-image url('/web/icons/session.png')
+    &:hover
+      opacity 0.4
+
+  &.volume
+    background-image url('/web/icons/study.svg')
+
+  &.download
+    background-image url('/web/icons/download.svg')
+    &:not(.button)
+      margin-right b3
+    &:hover:not(.button)
+      opacity 0.4
+
+  &.upload
+    background-image url('/web/icons/upload.svg')
+  &.download-disabled
+    background-image url('/web/icons/download-disabled.svg')
+    cursor text
+
+  &.edit
+  &.edit:hover
+    background-image url('/web/icons/edit.svg')
+
+  &.view-icon
+  &.view-icon:hover
+    background-image url('/web/icons/view.svg')
+
+  &.info
+    background-image url('/web/icons/info.svg')
+
+  &.jump
+    background-image url('/web/icons/jump.png')
+
+  &.network
+    background-image url('/web/icons/network.svg')
+
+  &.notification
+    background-image url('/web/icons/notification.svg')
+    &.new
+      background-image url('/web/icons/notification_alert.svg')
+
+  &.tag
+    background-image url('/web/icons/tag.svg')
+
+  &.trash
+    background-image url('/web/icons/close_c.png')
+    background-size 17px 16px
+  &.trash2
+    background-image url('/web/icons/trash.png')
+
+  &.paste
+    background-image url('/web/icons/paste.svg')
+
+  &.radio
+    background-image url('/web/icons/radio-open.svg')
+    transition transition
+  &.radio:hover
+    background-image url('/web/icons/radio-hover.svg')
+  &.radio-selected
+    background-image url('/web/icons/radio-selected.svg')
+    transition transition
+  &.radio-selected:hover
+    opacity 0.4
+
+  &.resize
+    background-image url('/web/icons/resize.svg')
+    &:hover
+      opacity 0.4
+
+  &.settings
+    background-image url('/web/icons/settings.svg')
+
+  &.zoomin
+    background-image url('/web/icons/zoomin.svg')
+  &.zoomout
+    background-image url('/web/icons/zoomout.svg')
+
+  &.user-access 
+    margin-right 3px
+  &.user-access.READ
+    background-image url('/web/icons/volume-access-r.svg')
+  &.user-access.EDIT
+    background-image url('/web/icons/volume-access-rw.svg')
+  &.user-access.ADMIN
+    background-image url('/web/icons/volume-access-rws.svg')
+  &.user-access.PUBLIC
+    background-image url('/web/icons/volume-access-public.svg')
+  &.user-access.SHARED
+    background-image url('/web/icons/volume-access-shared.svg')
+
+  &.site.READ
+    background-image url('/web/images/logo/databrary-small.svg')
+    background-position 0px center
+    background-size initial
+
+  &.access0
+    background-image url('/web/icons/private.svg')
+  &.access1
+    background-image url('/web/icons/partial.svg')
+    margin 2px 2px -2px -2px
+  &.access2
+    background-image url('/web/icons/public.svg')
+
+  &.line
+    height b1
+    background-position 0px 4px
+    &.session
+      width b1+b8
+  
+  &.b1
+    size b1
+
+.sort
+  background-position right
+  background-repeat no-repeat
+
+  &.sortable
+    background-image url('/web/icons/sortable.png')
+
+  &.sort-asc
+    background-image url('/web/icons/sort-asc.png')
+
+  &.sort-desc
+    background-image url('/web/icons/sort-desc.png')
+
+td.icon
+  background-size initial
+  &.release
+    background-size 28px auto

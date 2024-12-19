@@ -1,0 +1,39 @@
+<div class="volume-filters foot-2">
+  <b>Filter by </b>
+  <div class="volume-filter foot-2" ng-repeat="filt in filter.list">
+    <span class="volume-filter-label"><span ng-if="::filt.category.id!=='slot'" ng-bind="::filt.category.name"></span> {{::filt.metric.name}}</span>
+    <label for="spreadsheetfilter" class="accessible-hidden">spreadsheet filter</label>
+    <select id="spreadsheetfilter" class="volume-filter-part no-focus select-clear-style" ng-model="filt.op" ng-change="filter.change()">
+      <option value="">any</option>
+      <option ng-if="::filt.metric.type==='top'" value="true">materials</option>
+      <option ng-if="::filt.metric.type==='top'" value="false">sessions</option>
+      <option ng-if="::filt.metric.type==='void'" value="true">{{::filt.category.name}}</option>
+      <option ng-if="::filt.metric.type==='void'" value="false">{{::filt.category.not||'Not '+filt.category.name}}</option>
+      <option ng-if="::filt.metric.type!=='top' && filt.metric.type!=='void'" value="eq">is</option>
+      <option ng-if="::filt.metric.type!=='top' && filt.metric.type!=='void'" value="ne">is not</option>
+      <option ng-if="::filt.metric.type==='text' && !filt.metric.options" value="contains">contains</option>
+      <option ng-if="::filt.metric.type==='date'" value="ge">after</option>
+      <option ng-if="::filt.metric.type==='date'" value="le">before</option>
+      <option ng-if="::filt.metric.type==='numeric' || filt.metric.type==='age' || filt.metric.type==='release'" value="ge">at least</option>
+      <option ng-if="::filt.metric.type==='numeric' || filt.metric.type==='age' || filt.metric.type==='release'" value="le">at most</option>
+    </select>
+    <span ng-if="filt.op" ng-switch="::filt.metric.type">
+      <label for="metric-filter" class="accessible-hidden">metric filter</label>
+      <input-completer input-id="metric-filter" ng-switch-when="text" ng-if="::filt.metric.options" ng-model="filt.value" completer="filterCompleter(filt, $input)" min="0" submit="filter.change()" class="volume-filter-part"></input-completer>
+      <label for="text-filter" class="accessible-hidden">text filter</label>
+      <input id="text-filter" ng-switch-when="text" ng-if="::!filt.metric.options" type="text" ng-model="filt.value" key-enter="filter.change()" class="volume-filter-part no-focus"/>
+      <label for="date-filter" class="accessible-hidden">date filter</label>
+      <input id="date-filter" ng-switch-when="date" input-date ng-model="filt.value" key-enter="filter.change()" placeholder="YYYY-MM-DD" class="volume-filter-part no-focus"/>
+      <label for="numeric-filter" class="accessible-hidden">numeric filter</label>
+      <input id="numeric-filter" ng-switch-when="numeric" type="number" ng-model="filt.value" key-enter="filter.change()" class="volume-filter-part no-focus"/>
+      <label for="age-filter-input" class="accessible-hidden">age filter</label>
+      <label for="age-filter-select" class="accessible-hidden">age units</label>
+      <input-age ng-switch-when="age" ng-model="filt.value" key-enter="filter.change()" class="volume-filter-part no-focus" input-id="age-filter-input" select-id="age-filter-select"></input-age>
+      <label for="release-filter" class="accessible-hidden">release filter</label>
+      <select id="release-filter" ng-switch-when="release" ng-model="filt.value" ng-options="c as 'release.'+page.constants.release[c]+'.title' | message for c in ::page.constants.releases" ng-change="filter.change()" class="volume-filter-part no-focus select-clear-style"></select>
+    </span>
+    <button ng-click="filter.remove($index)" class="volume-filter-remove icon trash neutral" aria-label="remove filer"></button>
+  </div>
+  <small ng-show="filter.count" class="reminder"><ng-pluralize count="filter.count" when="{one:'One row',other:'{} rows'}"></ng-pluralize> hidden. </small>
+  <small ng-hide="filter.list.length > 1" class="reminder">Click anywhere in the spreadsheet to add filters</small>
+</div>

@@ -1,0 +1,56 @@
+<div class="row">
+  <div ng-if="::!volume.excerpts.length && volume.checkPermission(page.permission.EDIT)">
+    <small class="foot-2 block">Highlighting videos or files from your data makes it easier for others to understand what your volume contains. </small>
+    <a ng-href="{{::volume.editRoute('data')}}&key=slot" ng-click="tutorial('<p class=\'message-title\'>Selecting highlights from your data: </p><p>(1/3) Click on the file you wish to highlight from the \'file\' column to open the file viewer. Then click next.</p>','<p>(2/3) You may choose to highlight an entire video or only a specific section. Skip this step if you are highlighting the entire file. Otherwise, select the file you want to create a highlight from, press down and drag over the portion of video that you want to highlight.</p>','<p>(3/3) Click the \'Highlight on volume\' button. If you are highlighting a segment, you have the option of changing the sharing level of that segment in the dropdown that appears.</p><p>You now have a highlight on your volume page!</p>')" class="button neutral">Create highlight</a>
+  </div>
+  <div class="panel-excerpts-player col-desktop-7 col-tablet-5 col-mobile-6">
+    <section ng-if="!!current" class="panel-excerpts-player-frame">
+      <div ng-repeat="current in [current]">
+        <header>
+          <a ng-href="{{::current.slotRoute()}}" class="icon line session tool" tooltip="'session.jump' | message:'highlight'"><span class="accessible-hidden">Go to file edit page</span></a>
+          <a ng-if="::!current.pending && current.checkPermission(page.constants.permission.VIEW)" ng-href="{{::current.route()}}" class="icon line download tool" tooltip="'excerpts.download' | message"><span class="accessible-hidden">Download file</span></a>
+          <div class="panel-excerpts-player-heading">
+            <div ng-if="::releases" class="release icon line" ng-class="::page.constants.release[current.release]" hint="release-{{::page.constants.release[current.release]}}" role="img" aria-label="{{::page.constants.release[current.release]}} release level"></div>
+            <img class="icon" ng-src="{{::current.icon}}" hint="format-{{::current.format.extension}}" alt="format-{{::current.format.extension}} + ' icon'">
+            <span ng-bind="::current.displayName"></span>
+          </div>
+        </header>
+
+        <asset-display asset="current"></asset-display>
+      </div>
+    </section>
+
+    &nbsp;
+  </div>
+
+  <div class="panel-excerpts-list col-desktop-8 col-tablet-4 col-mobile-6">
+    <div class="row">
+      <div ng-repeat="(ri, el) in ::excerpts track by ri">
+          <div class="panel-excerpts-type" ng-if="::el.release">
+            <span class="release icon" ng-class="::el.release" hint="release-{{::el.release}}" role="img" aria-label="{{::el.release}} release level"></span>
+            <span message="{{::'release.'+el.release+'.title'}}" hint="release-{{::el.release}}"></span>
+          </div>
+          <div class="panel-excerpts-box small" ng-repeat="excerpt in ::el">
+            <div class="panel-excerpts-binder" ng-class="{'panel-excerpts-list-current':excerpt===current}">
+              <div class="panel-excerpts-actions">
+                <img class="icon" ng-src="{{::excerpt.icon}}" hint="format-{{::excerpt.format.extension}}" alt="format-{{::excerpt.format.extension}} icon">
+                <a ng-href="{{::excerpt.slotRoute()}}" class="icon session tool" tooltip="'session.jump' | message:'highlight'"><span class="accessible-hidden">Go to file edit page</span></a>
+              </div>
+              <div ng-click="setCurrent(excerpt)" class="panel-excerpts-icon">
+                <div ng-if="::hasThumbnail(excerpt)">
+                  <figure class="clickable" fill>
+                    <img ng-src="{{::excerpt.thumbRoute(109)}}" alt="thumbnail image for the highlighted content">
+                  </figure>
+                </div>
+                <div ng-if="::!hasThumbnail(excerpt)">
+                  <figure class="clickable no-thumbnail">
+                    <span ng-bind="::excerpt.asset.name"></span>
+                  </figure>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

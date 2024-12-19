@@ -1,0 +1,33 @@
+<comment-reply-form ng-if="canPost && !replyTo"></comment-reply-form>
+
+<article ng-repeat="comment in comments" class="panel-comments-comment" ng-class="::commentClass(comment)" id="comment-{{::comment.id}}">
+  <div class="row">
+    <div class="col-desktop-15 col-tablet-9 col-mobile-6">
+      <footer class="panel-comments-meta" ng-init="party = comment.who">
+        <aside class="portrait ng-cloak">
+          <a ng-href="{{::party.route()}}">
+            <figure class="figure-avatar" ng-class="::{inst: party.institution}">
+              <img ng-src="{{::party.avatarRoute()}}">
+            </figure>
+          </a>
+
+          <div class="portrait-info">
+            <a class="portrait-name" ng-href="{{::party.route()}}" ng-bind="::party.name"></a>
+            <span class="portrait-extra">
+              <time datetime="{{::comment.time | date:'yyyy-MM-dd HH:mm:ss Z'}}" ng-bind="::comment.time | date:'MMMM d, yyyy'"></time>
+              <a ng-if="::!(volume.top === comment.container)" ng-href="{{::jumpLink(comment)}}" class="icon session tool" tooltip="'session.jump' | message:'comment'"></a>
+            </span>
+          </div>
+        </aside>
+      </footer>
+
+      <div class="panel-comments-body" ng-bind-html="comment.text | format"></div>
+
+      <div class="panel-comments-body" ng-if="::canPost" ng-show="replyTo !== comment">
+        <button ng-click="setReply(comment)" class="mini" message="comments.reply"></button>
+      </div>
+    </div>
+  </div>
+
+  <comment-reply-form ng-if="canPost && replyTo === comment"  class="depth-1"></comment-reply-form>
+</article>

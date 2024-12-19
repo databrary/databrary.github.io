@@ -1,0 +1,13 @@
+<div class="messages" ng-class="::{'sandbox':page.constants.sandbox}">
+  <div ng-repeat="message in messages.list" id="{{::message.id}}" ng-class="::'message message-'+message.type" ng-style="{'z-index':500-$index}">
+    <div class="wrap">
+      <div class="row">
+        <div class="col">
+          <div class="message-close icon close clickable" ng-click="message.remove();message.addStorage()"></div>
+          <div class="message-content" ng-bind-html="message.body" ng-click="message.fn()"></div>
+          <button ng-if="message.more.length" ng-click="message.next()" class="green message-next">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

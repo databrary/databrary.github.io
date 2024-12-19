@@ -1,0 +1,36 @@
+// mixins
+
+quote-double()
+  &:before
+    content '\201C'
+    content open-quote
+  &:after
+    content '\201D'
+    content close-quote
+
+quote-single()
+  &:before
+    content '\2018'
+    content open-quote
+  &:after
+    content '\2019'
+    content close-quote
+
+// links
+
+link-color(color)
+  text-decoration none
+  cursor pointer
+  color color
+
+  &:link, &.link
+    color color
+
+  &:visited, &.visited
+    color mix(color, dark, 50%)
+
+  &:hover, &.hover
+    color mix(color, pale, 25%)
+
+  &:active, &.active
+    color mix(color, white, 25%)

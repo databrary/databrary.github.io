@@ -1,0 +1,14 @@
+// mixins
+
+button-color(color)
+  border 1px solid mix(color, gray, 75%)
+  background-color mix(color, white, 25%)
+
+  &:hover
+    background-color mix(color, white, 50%)
+
+  &:active
+    background-color mix(color, white, 75%)
+
+  &.selected, &.selected:hover, &.selected:active
+    background-color mix(color, white, 75%)

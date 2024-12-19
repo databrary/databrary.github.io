@@ -1,0 +1,62 @@
+.volume-meter-tab
+  margin-bottom 1
+  margin-left b1
+  margin-right b3
+.volume-meter-canvas
+  position relative
+  width 100%
+  max-width 300px
+  max-height 300px
+  cursor pointer
+  margin-bottom 0
+
+.volume-meter-category
+  position relative
+  border-radius b3
+  border 1px solid neutral
+  margin b2
+  padding-bottom b2
+  & > span
+    padding-left b1
+    margin-bottom 0
+  & > ul
+    margin-top b2
+    margin-bottom 0
+    padding-width 0
+    margin-width -10px
+
+  h5
+    color orange23
+  p
+    margin-bottom 0
+
+  h5, p
+    margin-left 2
+
+  li
+    padding-height b3
+    padding-left b1
+    border-top 1px solid neutral52
+    &:hover
+      background-color neutral51
+    & > span > .done.icon
+      size 1
+      vertical-align text-bottom
+  li:before
+    content none
+  & > .done-not.icon
+    position absolute
+    top 0
+    left 0
+    size 1.5
+    margin-height b3
+    margin-left b3
+    .done.icon
+      size 1.5
+
+.volume-meter-done
+  opacity 0.6
+  &:hover
+    background-color none
+
+

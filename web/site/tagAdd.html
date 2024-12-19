@@ -1,0 +1,15 @@
+<ng-form name="tagAddForm" class="panel-tags-new-form" isolate>
+  <div class="validator-input">
+    <div class="validator-field">
+      <aside ng-show="tagAddForm.showTip">
+        <div class="validator-messages">
+          <div class="validator-message">
+            <div class="validator-tip" ng-bind="::(keyword ? 'keyword' : 'tag')+'.add.help' | message"></div>
+          </div>
+        </div>
+      </aside>
+      <label for="tag-add" class="accessible-hidden">add tag</label>
+      <input-completer input-id="tag-add" ng-mouseenter="tagAddForm.showTip=true" ng-mouseleave="tagAddForm.showTip=false" input-name="newName" ng-model="tagAddForm.name" placeholder="Add new {{::keyword ? 'keyword' : 'tag'}}..." completer="tagAddForm.search($input)" submit="tagAddForm.submit($input)" pattern="[a-zA-Z][a-zA-Z -]{1,30}[a-zA-Z]"></input-completer>
+    </div>
+  </div>
+</ng-form>

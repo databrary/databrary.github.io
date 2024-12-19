@@ -1,0 +1,65 @@
+// mixins
+
+grid(keyword, spread, column, gutter)
+  .wrap
+    grid-wrap spread, column, gutter
+
+  .row
+    grid-row spread, column, gutter
+
+  .col
+    grid-col spread, column, gutter
+
+  .grid-outside
+    left (100%-(10000/(100 - unit(gutter,""))))
+    right (100%-(10000/(100 - unit(gutter,""))))
+
+  grid-make keyword, spread, column, gutter
+
+// helper
+
+grid-make(keyword, spread, column, gutter)
+  for col in (1..spread)
+    .col-{keyword}-{col}
+      grid-col col, column, gutter
+
+    .push-{keyword}-{col}
+      grid-offset col, column, gutter
+
+    .pull-{keyword}-{col}
+      grid-offset col*-1, column, gutter
+
+grid-offset(offset, column, gutter)
+  margin-left (column + unit(gutter,"")) * offset
+
+grid-padding(gutter)
+  padding-left (gutter/2)
+  padding-right (gutter/2)
+
+// grid components
+
+grid-wrap(spread, column, gutter)
+  margin 0 auto
+  grid-width spread, column, gutter
+  grid-padding gutter*2
+  clearfix()
+
+grid-row(spread, column, gutter)
+  margin-left (gutter/-2)
+  margin-right (gutter/-2)
+  clearfix()
+
+grid-col(spread, column, gutter)
+  float left
+  grid-width spread, column, gutter
+  grid-padding gutter
+
+// grid width
+
+grid-width(spread, column, gutter)
+  width (column + unit(gutter, "")) * spread
+
+// grid height
+
+grid-height(spread, column, gutter)
+  height (column + unit(gutter, "")) * spread

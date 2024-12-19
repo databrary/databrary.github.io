@@ -1,0 +1,132 @@
+<article class="view register-view">
+  <div class="wrap">
+    <div class="row">
+      <hgroup class="col">
+        <h1 class="view-context">Register</h1>
+        <h2 class="view-title">Get Databrary Access</h2>
+      </hgroup>
+
+      <div class="col">
+        <wizard name="register">
+          <wizard-step name="create">
+            <ng-form name="registerForm">
+              <validator name="prename" label="prename" class="grid-clear-left col-desktop-7 col-tablet-4 col-mobile-6">
+                <label for="field-prename" class="accessible-hidden">first name</label>
+                <input id="field-prename" name="prename" type="text" ng-model="registerForm.data.prename" autocomplete="off" placeholder="First">
+              </validator>
+
+              <validator name="sortname" label="sortname" class="grid-clear-right col-desktop-8 col-tablet-5 col-mobile-6">
+                <label for="field-sortname" class="accessible-hidden">last name</label>
+                <input id="field-sortname" name="sortname" type="text" ng-model="registerForm.data.sortname" ng-minlength="2" autocomplete="off" placeholder="Last" required>
+              </validator>
+
+              <validator name="email" label="email">
+                <label for="field-email" class="accessible-hidden">email</label>
+                <input id="field-email" name="email" type="email" ng-model="registerForm.data.email" autocomplete="off" required>
+              </validator>
+
+              <validator name="affiliation" label="affiliation">
+                <label for="field-affiliation" class="accessible-hidden">affiliation</label>
+                <input id="field-affiliation" name="affiliation" type="text" ng-model="registerForm.data.affiliation" autocomplete="off" placeholder="University" key-enter="proceed()">
+              </validator>
+
+              <button class="green" type="submit" ng-disabled="registerForm.$pristine || registerForm.$invalid" ng-click="proceed()">Continue</button>
+            </ng-form>
+          </wizard-step>
+
+          <wizard-step name="agreement">
+            <div>
+              <p>As a member of the Databrary community, you promise to:</p>
+              <ol>
+                <li>Treat Databrary data with the same high standard of care that you treat data collected in your own laboratory.</li>
+                <li>Respect participants' wishes about sharing their data just as you do in your lab.</li>
+                <li>Take care in authorizing other people (affiliates and collaborators) and take responsibility for their conduct and use of Databrary data, just as you do in your own lab.</li>
+              </ol>
+              <p>Read the <a href="https://databrary.org/about/agreement/agreement.html" target="_blank">Databrary Access Agreement</a> and <a href="https://databrary.org/about/agreement/agreement-annex-I.html" target="_blank">Annex I -- Statement of Rights and Responsibilities</a>. You can also download a <a href="https://databrary.org/policies/agreement.pdf" target="_blank">pdf of the agreement</a> and the <a href="https://databrary.org/policies/agreement-annex-I.pdf" target="_blank">Statement of Rights and Responsibilities</a>.</p>
+            </div>
+
+            <p>
+              <input id="agreement-checkbox" name="agreementCheckbox" type="checkbox" ng-model="registerForm.data.agreement">
+              <label for="agreement-checkbox" class="option">
+                By checking below, you agree that you have read and understand the <a href="http://databrary.org/access/policies/agreement.html" target="_blank">Databrary Access Agreement</a>, and that we may contact the officials at your institution who are responsible for executing legal agreements.
+              </label>
+            </p>
+
+            <button class="green" ng-click="proceed()" ng-disabled="registerForm.$pristine || registerForm.$invalid || !registerForm.data.agreement">I agree</button>
+          </wizard-step>
+
+          <wizard-step name="email">
+            <span ng-bind="'register.sent.instructions' | message:registerForm.data.email"></span>
+          </wizard-step>
+
+          <wizard-step name="password">
+            <ng-form name="passwordForm">
+              <p message="password.advice" message-html></p>
+
+              <validator name="once" label="password.once">
+                <label for="fieldPassword" class="accessible-hidden">password</label>
+                <input id="fieldPassword" name="once" type="password" ng-model="passwordForm.data.once" autocomplete="new-password">
+              </validator>
+
+              <validator name="again" label="password.again">
+                <label for="fieldPasswordAgain" class="accessible-hidden">password again</label>
+                <input id="fieldPasswordAgain" name="again" type="password" ng-model="passwordForm.data.again" autocomplete="new-password" key-enter="passwordForm.save()">
+              </validator>
+
+              <button class="green" type="submit" ng-disabled="passwordForm.$pristine || passwordForm.$invalid || passwordForm.data.once !== passwordForm.data.again || passwordForm.$submitted" ng-click="passwordForm.save()">Continue</button>
+            </ng-form>
+          </wizard-step>
+
+          <wizard-step name="agent">
+            <div>
+              <p>To access Databrary resources, you must be authorized either as an <strong>Authorized Investigator</strong> through your institution, or as an <strong>Affiliate</strong> by an Authorized Investigator.
+              </p>
+              <p>An <strong>Authorized Investigator</strong> must meet the following requirements:
+                <br/>
+                <ol>
+                  <li>Belong to an institution that maintains an ethics or Institutional Review Board with U.S.-equivalent standards that reviews and approves research involving human subjects; </li>
+                  <li>Have current research ethics training that addresses human subjects policy and issues; and </li>
+                  <li>Be eligible to conduct independent research at their institution.</li>
+                </ol>
+              </p>
+              <p>An <strong>Affiliate</strong> status is generally more appropriate for the following:
+                <br/>
+                <ul>
+                  <li>Students (undergraduate, Masters, or Ph.D. level)</li>
+                  <li>Lab staff</li>
+                  <li>Postdocs</li>
+                </ul>
+              </p>
+              <p>Select the appropriate option below, then search for your institution or sponsor. If they are not listed, select 'Other' to provide more information.
+              </p>
+            </div>
+            <div class="radio-set">
+              <div>
+                <input id="authinvestinput" type="radio" ng-model="authSearchForm.principal" ng-value="'principal'">
+                <label for="authinvestinput" class="option">
+                  <strong>Authorized Investigator</strong>
+                </label>
+              </div>
+
+              <div>
+                <input id="affiliateinput" type="radio" ng-model="authSearchForm.principal" ng-value="'affiliate'">
+                <label for="affiliateinput" class="option">
+                  <strong>Affiliate</strong>
+                </label>
+              </div>
+            </div>
+
+            <auth-search-form ng-show="authSearchForm.principal"></auth-search-form>
+
+          </wizard-step>
+
+          <wizard-step name="request">
+            <auth-apply-form></auth-apply-form>
+          </wizard-step>
+
+          <wizard-step name="pending"></wizard-step>
+        </wizard>
+      </div>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,43 @@
+// styles
+
+.view
+  margin-bottom 2
+
+.view-context
+  margin-top 1
+  font-line 1.5 1
+  color gray
+
+.view-title
+  font-line 2 2.1
+  margin-top 0
+  margin-bottom 1
+
+  .view-title-buttons
+  	margin-left b2
+
+  .view-title-buttons > button:not(.view-title-text)
+  .view-title-buttons > .button:not(.view-title-text)
+    position relative
+    vertical-align top
+    top 10px
+
+  .view-title-text
+    line-height b2
+    padding-height 5px
+    vertical-align top
+    margin-top 10px
+
+.view-link
+  display inline-block
+  margin-top 0.5
+
+  &:before
+    content '< '
+
+.view-center-block
+  max-width 100%
+  width max-content
+  margin-left auto
+  margin-right auto
+  text-align center

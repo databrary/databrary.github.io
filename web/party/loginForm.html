@@ -1,0 +1,19 @@
+<ng-form name="loginForm" class="login-form">
+  <validator name="email" label="login.email.title" class="inline-block right-margin">
+    <label for="loginEmail" class="accessible-hidden">email</label>
+    <input id="loginEmail" name="email" ng-model="loginForm.data.email" autocomplete="email" required>
+  </validator>
+
+  <validator name="password" label="login.password.title" class="inline-block right-margin">
+    <label for="loginPassword" class="accessible-hidden">password</label>
+    <input id="loginPassword" name="password" type="password" ng-model="loginForm.data.password" autocomplete="current-password" required key-enter="loginForm.submit()">
+  </validator>
+  <div class="foot-15x">
+    <button id="loginSubmit" type="submit" class="green" ng-click="loginForm.submit()" ng-disabled="loginForm.$pristine || loginForm.$invalid || loginForm.$submitted">Login</button>
+  </div>
+  <div>
+      <a ng-href="{{page.router.password() + '?email=' + email}}">Forgot your password?</a>
+      <br>
+      <a ng-href="{{::page.router.register()}}">Don't have an account?</a>
+  </div>
+</ng-form>

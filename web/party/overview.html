@@ -1,0 +1,46 @@
+<panel top id="panel-overview-party" panel-title="party.overview.title">
+  <div class="row">
+    <div class="col-desktop-3 col-tablet-3 col-mobile-3 col-cell">
+      <img class="panel-overview-party-thumb" ng-src="{{party.avatarRoute(500)}}">
+    </div>
+    <div class="col-desktop-12 col-tablet-6 col-mobile-6 col-cell">
+      <hgroup>
+        <h1 class="view-title">
+          <span>{{party.name}}</span>
+          <div class="view-title-buttons inline-block" ng-if="::party.checkPermission(page.permission.EDIT)" >
+            <a href="" class="green selected button icon view-icon"></a>
+            <a ng-href="{{::party.editRoute()}}"><span class="white button icon edit"></span></a>
+            <a ng-href="{{::page.router.partyActivity([party.id])}}" class="button mini white view-title-text">User history</a>
+          </div>
+        </h1>
+      </hgroup>
+      <div>
+        <p ng-if="::page.$location.path() === page.router.profile()">
+          <a ng-href="{{::page.router.party(party.id)}}">Switch to public view</a><br>
+        </p>
+        <p ng-if="::page.$location.path() === page.router.party(page.models.Login.user.id)">
+          <a ng-href="{{::page.router.profile()}}">Switch to my profile</a>
+        </p>
+      </div>
+      <div>
+        <div frame id="frame-contact" frame-title="party.contact.title" fold>
+          <div>
+            <dl class="flat">
+              <dt ng-if="::party.affiliation">Affiliation</dt>
+              <dd ng-if="::party.affiliation" ng-bind="::party.affiliation"></dd>
+
+              <dt ng-if="::party.email">Email</dt>
+              <dd ng-if="::party.email"><a ng-href="mailto:{{::party.email}}" ng-bind="::party.email"></a></dd>
+
+              <dt ng-if="::party.orcid">ORCID iD</dt>
+              <dd ng-if="::party.orcid"><a ng-href="http://orcid.org/{{::party.orcid}}" ng-bind="::party.orcid"></a></dd>
+
+              <dt ng-if="::party.url">Website</dt>
+              <dd class="party-url" ng-if="::party.url"><a ng-href="{{::party.url}}" ng-bind="::party.url"></a></dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</panel>

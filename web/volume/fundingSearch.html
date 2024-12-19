@@ -1,0 +1,5 @@
+<ng-form name="fundingSearchForm" autocomplete="off" isolate>
+  <validator name="name" noclientval>
+    <input-completer input-name="name" ng-model="fundingSearchForm.nameVal" completer="fundingSearchForm.search($input)" placeholder="Search for a funding source..."></input-completer>
+  </validator>
+</ng-form>

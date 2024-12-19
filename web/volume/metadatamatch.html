@@ -1,0 +1,64 @@
+<ng-form name="metadataMatchForm">
+  <div ng-if="volume.selected_mapping.length === volume.suggested_mapping.length">
+    We've detected the following match.
+    <table>
+      <tr>
+        <th>Databrary field</th>
+        <th ng-repeat="x in volume.selected_mapping track by $index">
+          <span ng-if="x.metric === 'id'">{{x.metric | uppercase}}</span>
+          <span ng-if="x.metric !== 'id'">{{x.metric}}</span>
+        </th>
+      </tr>
+      <tr>
+        <th>Your csv field</th>
+        <td ng-repeat="x in volume.selected_mapping track by $index">
+          <span>{{x.csv_field}}</span>
+        </td>
+      </tr>
+      <tr>
+        <th rowspan="5">Your csv sample rows</th>
+        <td ng-repeat="x in volume.selected_mapping track by $index">
+          <span ng-repeat="y in volume.columns_firstvals track by $index" ng-if="y.column_name.toLowerCase() === x.metric.toLowerCase();" ng-bind="y.samples[0]"></span>
+        </td>
+      </tr>
+      <tr>
+        <td ng-repeat="x in volume.selected_mapping track by $index">
+          <span ng-repeat="y in volume.columns_firstvals track by $index" ng-if="y.column_name.toLowerCase() === x.metric.toLowerCase();" ng-bind="y.samples[1]"></span>
+        </td>
+      </tr>
+      <tr>
+        <td ng-repeat="x in volume.selected_mapping track by $index">
+          <span ng-repeat="y in volume.columns_firstvals track by $index" ng-if="y.column_name.toLowerCase() === x.metric.toLowerCase();" ng-bind="y.samples[2]"></span>
+        </td>
+      </tr>
+      <tr>
+        <td ng-repeat="x in volume.selected_mapping track by $index">
+          <span ng-repeat="y in volume.columns_firstvals track by $index" ng-if="y.column_name.toLowerCase() === x.metric.toLowerCase();" ng-bind="y.samples[3]"></span>
+        </td>
+      </tr>
+      <tr>
+        <td ng-repeat="x in volume.selected_mapping track by $index">
+          <span ng-repeat="y in volume.columns_firstvals track by $index" ng-if="y.column_name.toLowerCase() === x.metric.toLowerCase();" ng-bind="y.samples[4]"></span>
+        </td>
+      </tr>
+      <tr>
+        <th>Your csv data range</th>
+        <td ng-repeat="x in volume.selected_mapping track by $index">
+          <span ng-repeat="y in volume.column_samples track by $index" ng-if="y.column_name === x.csv_field" ng-class="y.samples.join(' ')">{{y.samples.join(', ')}}</span>
+        </td>
+      </tr>
+    </table>
+    <div class="nulltext">Your csv dataset has null values. Please see the table cells above highlighted in pink.</div>
+    <div>
+      Do you accept this match?
+      <div class="margin-top">
+        <button class="green" ng-click="metadataMatchForm.save()">
+            Yes
+        </button>
+        <a ng-click="skip();">
+            No
+        </a>
+      </div>
+    </div>
+  </div>
+</ng-form>

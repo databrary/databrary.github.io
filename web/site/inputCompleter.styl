@@ -1,0 +1,63 @@
+input-completer > input
+  margin-bottom 0
+
+.input-completer-choices
+.spreadsheet-tab-options
+  background-color white
+  box-shadow b8 b8 b8 -b8 black
+  z-index 9
+  overflow-y auto
+  position absolute
+  width inherit
+  padding-right 0
+  padding-left 0
+
+.input-completer-choices
+  border 1px black solid
+  border-radius 3px
+  min-width 200px
+  max-height 200px
+
+.spreadsheet-tab-options
+  border 2px black solid
+  border-radius b3
+
+.spreadsheet-edit
+  .ident-completer
+    .input-completer-choices
+      width -webkit-max-content
+      width -moz-max-content
+      width max-content
+
+.input-completer-choice
+.spreadsheet-tab-option
+  margin-bottom 0
+  transition none
+
+  &:last-child
+    a
+      border-bottom 0px
+
+  a,span
+    display block
+    padding f4 f2
+  a
+    border-bottom 1px solid gray
+
+  a:hover
+    background-color neutral52
+    color blue21
+
+  &.default
+    font-weight bold
+    a
+      color green53
+    a:before
+      content '\279e\00a0'
+      color black
+
+  &.selected
+    background-color neutral53
+
+.spreadsheet-tab-option
+  border-bottom 1px solid gray

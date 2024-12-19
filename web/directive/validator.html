@@ -1,0 +1,29 @@
+<div class="validator">
+  <label for="{{validator.validatorId}}" ng-if="::validator.label" ng-bind-html="::validator.label"></label>
+
+  <div class="validator-input">
+    <div class="validator-field">
+      <aside class="validator-messages">
+        <div ng-class="{'error':validator.serverErrors.length > 0 && !validator.changed || validator.clientErrors.length > 0 && validator.name && validator.name.$invalid && validator.focus}" class="validator-message" ng-show="validator.show()">
+          <div ng-if="validator.showServerErrors()">
+            <div class="validator-server" ng-repeat="tip in validator.serverErrors" ng-bind-html="::tip"></div>
+          </div>
+
+          <div ng-if="validator.showClientErrors()">
+            <div class="validator-client" ng-repeat="tip in validator.clientErrors" ng-bind-html="::tip"></div>
+          </div>
+
+          <div ng-if="validator.showClientTips()">
+            <div class="validator-tip" ng-repeat="tip in validator.clientTips" ng-bind-html="::tip"></div>
+          </div>
+        </div>
+      </aside>
+
+      <div ng-transclude></div>
+      <div ng-if="::!validator.noclientval" class="validator-indicator" ng-class="validator.iconClasses()">
+        <img class="validator-invalid" src="/web/icons/invalid.png" alt="failed validation icon">
+        <img class="validator-valid" src="/web/icons/valid.png" alt="passed validation icon">
+      </div>
+    </div>
+  </div>
+</div>

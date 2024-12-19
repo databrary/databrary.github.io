@@ -1,0 +1,53 @@
+// vars
+
+pad = f2
+
+// styles
+
+.frame-header
+  font-weight normal
+  font-line 1 1.5
+  text-transform uppercase
+  letter-spacing 1px
+  margin 0
+  display inline-block
+
+.frame
+  &.foldable
+    .folder
+      cursor pointer
+
+      &:before
+        transition transition
+        content ""
+        size 0
+        display block
+        float left
+        position relative
+        top b2
+        border b4 solid transparent
+        border-top-color black
+        margin-right f4
+
+      &:hover
+        color gray
+
+        &:before
+          transform rotate(-45deg)
+
+    .fold
+      transition transition
+
+  &.folded
+    .folder
+      &:before
+        transform rotate(-90deg)
+
+      &:hover
+        color gray
+
+        &:before
+          transform rotate(-45deg)
+
+    .fold
+      display none

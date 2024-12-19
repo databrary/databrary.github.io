@@ -1,0 +1,290 @@
+<article class="view slot-view" flow-init="flowOptions" 
+    flow-file-added="fileAdded($file, $event)" 
+    flow-file-success="fileSuccess($file)" 
+    flow-file-progress="fileProgress($file)" 
+    flow-file-error="fileError($file, $message)" 
+    mouse-drag-region>
+  <div class="wrap">
+    <div class="row">
+      <div class="col">
+        <hgroup class="session-header">
+          <a class="view-link" ng-href="{{::editing ? volume.editRoute('data') : volume.route() + '#panel-data'}}" ng-bind="::volume.alias || volume.name"></a>
+          <h3 class="view-context">{{::editing? 'Manage' : 'View'}}</h3>
+          <h3 class="view-title">
+            <span ng-bind="::slot.displayName"></span>
+            <span ng-if="::slot.date" ng-bind="::' (' + slot.date + ')'"></span>
+            <span ng-if="::slot.release != null" class="release icon" ng-class="::[page.constants.release[slot.release], 'hint-release-'+page.constants.release[slot.release]]"></span>
+            <div ng-if="::volume.checkPermission(page.permission.EDIT)" class="view-title-buttons inline-block">
+              <button ng-class="::editing ? 'white' : 'green selected'" ng-disabled="::!editing" ng-click="toggleEdit()" class="icon view-icon"></button>
+              <button ng-class="::editing ? 'green selected' : 'white'" ng-disabled="::editing" ng-click="toggleEdit()" class="icon edit"></button>
+              <a ng-href="{{::page.router.slotActivity([volume.id, slot.id])}}" class="button mini white view-title-text">{{::slot.top? 'Materials' : 'Session'}} history</a>
+            </div>
+          </h3>
+        </hgroup>
+
+        <section class="slot-player slot frame" id="slot-player" fold ng-style="{'max-height':current?playerHeight+100+'px':'0px'}">
+          <div class="slot-header folder" folder ng-click="toggleFold()" ng-if="!!current">
+            <span>Viewer</span>
+          </div>
+          <div class="player fold">
+            <nav ng-if="!(folded || !current)" class="player-actions">
+              <button ng-if="editing && !!current.asset" ng-init="current.dirty && form.edit.$setDirty()" class="player-action-word green" ng-click="current.save()" ng-disabled="form.edit.$pristine || form.edit.$invalid || current.pending || form.edit.$submitted">Save</button>
+              <button ng-if="editing && current.asset && !current.file" class="player-action-word yellow" flow-btn>Replace File</button>
+              <a ng-if="editing && !!(current.asset || current.file) && !current.pending" ng-click="current.remove()" class="player-action-icon icon trash2 button"></a>
+              <a ng-if="current.asset && !current.asset.pending && current.asset.checkPermission(page.permission.VIEW)" class="player-action-icon icon download button" ng-href="{{current.asset.route()}}"></a>
+              <button ng-if="current.canRestore()" class="paste icon" tooltip="'asset.restore' | message" ng-click="current.restore()"></button>
+            </nav>
+            <div ng-if="!(folded || !current)" id="player-scroll" class="player-scroll" ng-style="{height:playerHeight+'px'}">
+              <div class="player-info">
+                <h1 class="player-info-name">
+                  <img ng-if="!editing && !!current.asset" ng-src="{{current.asset.icon}}" ng-class="'hint-format-'+current.asset.format.extension" class="player-info-file-icon">
+                  <span ng-if="!editing && !!current.asset && current.asset.release" class="release icon" ng-class="[page.constants.release[current.asset.release], 'hint-release-'+page.constants.release[current.asset.release]]"></span>
+                  <span class="filename" ng-if="!editing && !!current.asset" ng-bind="current.asset.name"></span>
+                  <span class="category" ng-if="!!current.record" ng-bind="current.record.displayName"></span>
+                </h1>
+
+                <div ng-if="!editing || !!current.record">
+                  <dl class="player-info-list cf">
+                    <dt ng-if="!!current.asset" message="asset.format"></dt>
+                    <dd ng-if="!!current.asset" ng-bind="(current.asset.format.description || current.asset.format.name) + ' (' + current.asset.format.extension + ')'"></dd>
+                    <dt ng-if="!current.full || current.asset.duration">Position</dt>
+                    <dd>
+                      <span ng-if="!current.full">
+                        <span ng-bind="current.lBounded? (current.l | timecode:true) : 'Start'"></span>
+                        <span ng-if="current.u > current.l"> &ndash; 
+                          <span ng-bind="current.uBounded? (current.u | timecode:true) : 'End'"></span>
+                        </span>
+                      </span>
+                      <span ng-if="current.asset.duration"> (<span ng-bind="current.asset.duration | timecode:true"></span>)</span>
+                    </dd>
+                    <dt ng-if="!!current.record" ng-repeat-start="metric in current.metrics() track by metric.id" ng-bind="::metric.name"></dt>
+                    <dd ng-if="!!current.record" ng-repeat-end ng-bind="current.record.measures[metric.id]"></dd>
+                    <dt ng-if="!!current.age">age</dt>
+                    <dd ng-if="!!current.age"><display-age value="current.age"></display-age></dd>
+                  </dl>
+                </div>
+
+                <ng-form ng-if="::editing" name="form.edit" ng-switch="current.type">
+                  <div ng-switch-when="asset">
+                    <validator name="name" label="asset.name.title">
+                      <input type="text" name="name" ng-model="current.data.name" placeholder="Please add a name. This name will be displayed to all users.">
+                    </validator>
+
+                    <validator name="classification" label="asset.classification">
+                      <classification-select name="classification" ng-model="current.data.classification" default="slot.release" force="slot.top && slot.release==undefined"></classification-select>
+                    </validator>
+                  </div>
+                </ng-form>
+              </div>
+
+              <div ng-init="updatePlayerHeight()" id="player-viewport" class="player-viewport">
+                <small ng-if="editing && $flow.support && current.type === 'asset' && !current.file && !current.asset">See our <a ng-href="{{::page.router.helpFormats()}}" target="_blank">list of accepted file types</a>.</small>
+                <div ng-if="editing && $flow.support && current.type === 'asset' && !current.file && !current.asset" flow-drop flow-btn flow-drag-enter="dropClasses['over-zone'] = true" flow-drag-leave="dropClasses['over-zone'] = false" ng-class="dropClasses" class="file-drop">
+                  <span class="icon b1 add"></span>
+                  <span class="dropzone-message" message="asset.add-drop{{::current.asset ? '.replace' : '.new'}}"></span>
+                </div>
+                <div ng-if="::!$flow.support" class="file-drop">
+                  <s>Unfortunately, your browser does not appear to support file uploads. Please try another browser or contact us for assistance.</s>
+                </div>
+                <upload-progress class="upload-progress-info" ng-if="!!current.file" progress-value="current.progress"></upload-progress>
+                <asset-display ng-repeat="asset in [asset] track by asset.id" ng-if="!!asset" asset="asset"></asset-display>
+              </div>
+            </div>
+            <div ng-if="!folded" class="player-resize-bar" mouse-drag="resizePlayer($down, $up)">
+              <span class="icon resize"></span>
+            </div>
+          </div>
+        </section>
+
+        <div id="slot-tags" class="slot-tags panel-tags-list" ng-form="form.tag">
+          <div class="panel-tags-legend" tooltip="'keywords.display.description' | message">
+            <span class="panel-tags-item tags-item legend keyword"></span>
+            <span message="keywords.title"></span>
+          </div>
+          <div ng-if="::!editing" class="panel-tags-legend" tooltip="'tags.display.description' | message">
+            <span class="panel-tags-item tags-item legend"></span>
+            <span message="tags.title"></span>
+          </div> | 
+          <ul class="panel-tags-items">
+            <li ng-repeat="tag in tags" class="panel-tags-item tags-item" ng-class="{'active': tag.active,'keyword': tag.keyword.length}">
+              <div class="tag-name" ng-click="tag.toggle()" ng-bind="::tag.id">
+              </div>
+              <div class="panel-tag-controls" ng-if="::authorized">
+                <button class="panel-tag-vote available null" name="vote" ng-click="tag.save(false)" ng-if="tag.state === true" hint="tags-vote-null">
+                  -
+                </button>
+                <button class="panel-tag-vote available up" name="vote" ng-click="tag.save(true)" ng-if="tag.state === false" hint="tags-vote-up">
+                  +
+                </button>
+              </div>
+            </li>
+            <li class="panel-tags-item tags-item tag-add" ng-if="::editing || authorized">
+              <tag-add ng-if="::!editing"></tag-add>
+              <tag-add ng-if="::editing" keyword></tag-add>
+            </li>
+          </ul>
+        </div>
+
+        <section id="slot-timeline" class="slot-timeline slot frame">
+
+          <div class="slot-toolbar" ng-if="::editing" ng-switch="editing" ng-class="{'slot-toolbar-bg': editing!==true}">
+            <div ng-switch-when="true">
+              <button ng-click="addBlank()" class="mini">Add file</button>
+              <button ng-if="!!(current.asset || current.file) && !current.pending" ng-click="current.remove()" class="mini">Remove file</button>
+              <button ng-if="!!(current.asset || current.file) && !current.pending" class="mini" flow-btn>Replace file</button>
+              <button ng-if="!!current.asset" ng-click="current.rePosition()" class="mini">Position file</button>
+              &#32;
+              <button ng-if="current.excerpt.on === false" ng-click="current.editExcerpt()" class="mini">Highlight on volume</button>
+              <button ng-if="current.excerpt.on === true" ng-click="current.editExcerpt()" class="mini"><span ng-if="::current.excerpt.full">Remove</span><span ng-if="::!current.excerpt.full">Edit</span> highlight</button>
+              &#32;
+              <button ng-if="::slot !== slot.volume.top" ng-click="addRecord()" class="mini">Add record</button>
+              <button ng-if="!!current.record" ng-click="current.remove()" class="mini">Remove record</button>
+              <button ng-if="!!current.record" ng-click="current.rePosition()" class="mini">Position record</button>
+            </div>
+            <ng-form ng-switch-when="addrecord" name="form.record">
+              <button ng-click="addRecord(null)" class="mini">Cancel</button>&#32;
+              <select class="slot-toolbar-select" name="category" ng-model="addRecord.category" ng-options="c as page.constants.category[c].name || 'record' for (c, n) in addRecord.categories" ng-change="setCategory(addRecord.category)">
+                <option value="">Choose category...</option>
+              </select>&#32;
+              <select ng-if="!!addRecord.options" class="slot-toolbar-select" name="record" ng-model="addRecord.select" ng-options="r as d for (r, d) in addRecord.options" ng-change="addRecord(addRecord.select)">
+                <option value="">Choose record...</option>
+              </select>
+            </ng-form>
+            <ng-form ng-switch-when="record" name="form.position">
+              <input input-position="-Infinity" class="position-input" type="text" size="10" name="position-lower" ng-model="current.l" position-max="current.u" ng-change="current.updatePosition(false)" key-enter="updatePosition()" placeholder="MM:SS"> 
+              &ndash; 
+              <input input-position="Infinity" class="position-input" type="text" size="10" name="position-upper" ng-model="current.u" position-min="current.l" ng-change="current.updatePosition(true)" placeholder="MM:SS"> 
+              <button ng-click="current.finishPosition()">Cancel</button>
+              <button class="green" ng-click="current.savePosition()" ng-disabled="form.position.$pristine || form.position.$invalid">Save</button>
+            </ng-form>
+            <ng-form ng-switch-when="asset" name="form.position">
+              <input input-position="-Infinity" class="position-input" type="text" size="10" name="position-lower" ng-model="current.l" ng-change="current.updatePosition(false)" key-enter="updatePosition()" placeholder="MM:SS"> 
+              &ndash; 
+              <span ng-bind="current.u | timecode:true"></span> 
+              <button ng-click="current.finishPosition()">Cancel</button>
+              <button class="green" ng-click="current.savePosition()" ng-disabled="form.position.$pristine || form.position.$invalid">Save</button>
+            </ng-form>
+            <ng-form ng-switch-when="excerpt" name="form.excerpt">
+              <button ng-click="current.saveExcerpt()" class="mini">Cancel</button>
+              <button ng-if="current.excerpt.on" ng-click="current.saveExcerpt(null)" class="mini">Remove highlight</button>&#32;
+              <select ng-if="current.excerpt.on !== undefined" id="slot-toolbar-select-excerpt" class="slot-toolbar-select" name="excerpt" ng-model="current.excerpt.release" ng-options="i as c for (i, c) in current.excerptOptions()" ng-change="current.saveExcerpt(current.excerpt.release)"></select>
+            </ng-form>
+          </div>
+          <div class="slot-timeline-timeline">
+            <div class="slot-timeline-now-zone">
+              <div class="slot-timeline-now" ng-class="::{edit: editing}" ng-if="ruler.position.defined()" ng-style="ruler.position.style()"></div>
+            </div>
+
+            <div class="slot-timeline-selection" ng-if="!ruler.selection.empty">
+              <div class="selection" ng-class="::{edit: editing}" ng-style="ruler.selection.style()"></div>
+            </div>
+
+            <div class="slot-timeline-temporal" ng-if="ruler.range.length" ng-form="form.ruler">
+              <div class="slot-timeline-control">
+                <input input-position="-Infinity" class="slot-timeline-time start" type="text" size="10" ng-model="ruler.selection.l" position-max="ruler.selection.u" name="selection-l" ng-change="updateSelection()"></input>
+                <button id="setOnset" ng-disabled="!ruler.position.defined()" ng-click="setSelectionEnd(false)">&larr;</button>
+                <input input-position class="slot-timeline-time" type="text" size="10" ng-model="ruler.position.o" name="position" key-enter="updatePosition()"></input>
+                <button id="setOffset" ng-disabled="!ruler.position.defined()" ng-click="setSelectionEnd(true)">&rarr;</button>
+                <input input-position="Infinity" class="slot-timeline-time stop" type="text" size="10" ng-model="ruler.selection.u" position-min="ruler.selection.l" name="selection-u" ng-change="updateSelection()"></input>
+                <div class="slot-timeline-zoom">
+                  <span class="icon zoomin clickable" ng-click="zoom(ruler.selection)" ng-if="ruler.selection.length && !ruler.selection.contains(ruler.range)"></span>
+                  <span class="icon zoomout clickable" ng-if="ruler.zoomed" ng-click="zoom()"></span>
+                </div>
+              </div>
+
+              <div class="slot-timeline-ruler" ng-click="click($event)" mouse-drag="dragSelection($down, $up)">
+                <div class="slot-timeline-ruler-time left" ng-bind="ruler.range.l | timecode:true"></div>
+                <div class="slot-timeline-ruler-time right" ng-bind="ruler.range.u | timecode:true"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="slot-tag-track slot-track" ng-repeat="t in tags" ng-if="t.active" ng-class="{select: t === current}" ng-click="t.click($event)" mouse-drag="dragSelection($down, $up, t)">
+                <div class="slot-tag-segment" ng-repeat="ts in t.coverage" ng-style="ts.style()" ng-dblclick="ts.select($event)"></div>
+                <div class="slot-tag-keyword" ng-repeat="ts in t.keyword" ng-style="ts.style()" ng-dblclick="ts.select($event)"></div>
+                <div class="slot-tag-vote" ng-repeat="ts in t.vote" ng-style="ts.style()" ng-dblclick="ts.select($event)"></div>
+                <div class="slot-tag-name" ng-bind="t.id"></div>
+              </div>
+            </div>
+
+            <div class="slot-annotations">
+              <div class="slot-record-track slot-track" ng-repeat="rs in records">
+                <div class="slot-record" ng-repeat-start="r in rs" ng-class="{'slot-record-select': r === current}" ng-style="r.style()">
+                  <div ng-if="r === current && editing === 'record'" class="slot-handle slot-handle-left" mouse-drag="r.drag($up, false)"></div>
+                  <div ng-if="r === current && editing === 'record'" class="slot-handle slot-handle-right" mouse-drag="r.drag($up, true)"></div>
+                </div>
+                <div class="slot-record-background" ng-repeat-end ng-style="positionBackgroundStyle(rs, $index)" ng-click="r.click($event)" ng-dblclick="r.select($event)" mouse-drag="dragSelection($down, $up, r)" ng-bind="r.record.displayName"></div>
+              </div>
+            </div>
+
+            <div class="slot-timeline-tracks">
+              <div ng-repeat="t in assets" class="slot-timeline-track slot-track" ng-class="{select: asset ? t.asset === asset : t === current, dirty: t.dirty, 'slot-track-positioned': t.asset && !t.full, 'slot-track-select': t === current, 'slot-track-empty': !(t.asset || t.file)}" ng-click="t.click($event)" ng-dblclick="t.select($event)" mouse-drag="dragSelection($down, $up, t)">
+                <div class="slot-excerpt" ng-repeat="excerpt in t.excerpts" ng-if="editing !== 'asset' && !excerpt.excerpt.full" ng-style="excerpt.style()" ng-dblclick="excerpt.select($event)">
+                </div>
+                <div class="slot-track-asset-info">
+                  <span ng-if="!(t.asset || t.file)" message="asset.empty" class="slot-message-empty"></span>
+                  <span ng-if="t.asset.release != null" class="classification-info release icon" ng-class="[page.constants.release[t.asset.release], 'hint-release-'+page.constants.release[t.asset.release]]"></span>
+                  <upload-progress class="upload-progress-info" ng-if="!!t.file" progress-value="t.progress"></upload-progress>
+                  <img class="slot-track-asset-thumb" ng-if="!!t.asset && t.asset.checkPermission(page.constants.permission.VIEW)" ng-src="{{t.asset.thumbRoute(24)}}">
+                  <span class="slot-track-asset-info-name" ng-class="{uploading: !!t.file}" ng-if="!!t.asset || !!t.file">
+                    <span class="slot-track-asset-info-name-name" ng-bind="t.asset.name || t.data.name || t.file.file.name"></span>
+                    <span ng-if="!!t.asset.fullExcerpt"> (highlight)</span>
+                    <span class="track-status" ng-if="t.asset && !t.asset.duration && t.asset.format.type==='video'"> (processing)</span>
+                  </span>
+                </div>
+                <div class="slot-track-asset" ng-if="t.asset && !t.full" ng-style="t.style()">
+                  <div ng-if="t === current && editing === 'asset'" class="slot-handle slot-handle-move" mouse-drag="t.dragMove($down, $up)"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div ng-if="::!editing" class="slot-download" ng-show="!!assets[0].asset">
+          <a ng-href="{{::slot.zipRoute()}}">
+            <span class="icon download"></span>
+            <span class="download">Download all files as zip</span>
+          </a>
+        </div>
+
+        <section ng-if="::!editing" id="slot-comments" class="slot-comments">
+          <div ng-if="!commentReply && authorized">
+            <textarea ng-model="form.comment.text" placeholder="Post a comment..."></textarea>
+            <button ng-disabled="!form.comment.text.length" ng-click="addComment(form.comment.text)" class="mini" message="comments.post"></button>
+          </div>
+
+          <article ng-repeat="comment in comments" class="panel-comments-comment" ng-class="comment.classes" id="comment-{{::comment.comment.id}}">
+            <div class="row">
+              <div class="col-desktop-15 col-tablet-9 col-mobile-6">
+                <footer class="panel-comments-meta" ng-init="party = comment.comment.who">
+                  <aside class="portrait ng-cloak">
+                    <a ng-href="{{::party.route()}}">
+                      <figure class="figure-avatar" ng-class="::{inst: party.institution}">
+                        <img ng-src="{{::party.avatarRoute()}}">
+                      </figure>
+                    </a>
+                    <div class="portrait-info">
+                      <a class="portrait-name" ng-href="{{::party.route()}}" ng-bind="::party.name"></a>
+                      <span class="portrait-extra">
+                        <time datetime="{{::comment.comment.time | date:'yyyy-MM-dd HH:mm:ss Z'}}" ng-bind="::comment.comment.time | date:'MMMM d, yyyy'"></time>
+                      </span>
+                    </div>
+                  </aside>
+                </footer>
+                <div class="panel-comments-body" ng-bind-html="comment.comment.text | format"></div>
+                <div class="panel-comments-body" ng-if="commentReply !== comment && authorized">
+                  <button ng-click="comment.setReply($event)" class="mini" message="comments.reply"></button>
+                </div>
+              </div>
+            </div>
+            <div ng-if="commentReply === comment">
+             <textarea ng-model="form.comment.reply" focus></textarea>
+             <button class="mini" ng-disabled="!form.comment.reply.length" ng-click="addComment(form.comment.reply, comment)" message="comments.post"></button>
+             <button class="mini" ng-click="comment.setReply()" message="comments.cancel"></button>
+            </div>
+          </article>
+        </section>
+      </div>
+    </div>
+  </div>
+</article>

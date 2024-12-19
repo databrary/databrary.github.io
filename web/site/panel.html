@@ -1,0 +1,14 @@
+<section class="panel ng-cloak" ng-class="id">
+  <div class="wrap">
+    <div class="row">
+      <div class="col">
+        <h2 ng-if="::!top" class="panel-header" folder ng-click="toggleFold()">
+          <span></span>
+          {{::title}}
+          <a ng-click="edit($event)" ng-if="edit" href="#"><span class="button green icon edit" role="img" aria-label="edit icon"></span><span class="accessible-hidden">Edit</span></a>
+        </h2>
+        <div ng-if="!folded" panel-body ng-transclude></div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+// vars
+
+indent = 2 + f4
+
+// styles
+
+.panel-comments-comment
+  margin-bottom 1
+  margin-top 1
+  border-left b8 solid green51
+  padding-left b3
+
+  .comment-reply-form
+  &.depth-1
+    margin-left indent * 1
+
+  &.depth-2
+    margin-left indent * 2
+
+  &.depth-3
+    margin-left indent * 3
+
+  &.depth-4
+    margin-left indent * 4
+
+  &.depth-5
+    margin-left indent * 5
+
+.panel-comments-meta
+  padding-bottom 0
+
+  .portrait
+    margin-bottom f2
+  .icon
+    margin-left b8
+
+.panel-comments-body
+  margin-left indent

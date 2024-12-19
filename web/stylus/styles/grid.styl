@@ -1,0 +1,48 @@
+// styles
+
+@media screen and (max-width: grid-mobile-width)
+  grid(mobile, grid-mobile-spread, grid-mobile-column, grid-mobile-gutter)
+
+  .hide-mobile
+    hide()
+  .show-tablet
+    hide()
+  .show-desktop
+    hide()
+  .grid-clear-left.col-mobile-6
+    padding-right 0
+  .grid-clear-right.col-mobile-6
+    padding-left 0
+
+@media screen and (min-width: grid-mobile-width+1) and (max-width: (grid-tablet-width))
+  grid(tablet, grid-tablet-spread, grid-tablet-column, grid-tablet-gutter)
+
+  .show-mobile
+    hide()
+  .hide-tablet
+    hide()
+  .show-desktop
+    hide()
+  .grid-clear-left.col-tablet-9
+    padding-right 0
+  .grid-clear-right.col-mobile-6
+    padding-left 0
+
+@media screen and (min-width: grid-tablet-width+1)
+  grid(desktop, grid-desktop-spread, grid-desktop-column, grid-desktop-gutter)
+
+  .show-mobile
+    hide()
+  .show-tablet
+    hide()
+  .hide-desktop
+    hide()
+  .grid-clear-left.col-desktop-15
+    padding-right 0
+  .grid-clear-right.col-mobile-6
+    padding-left 0
+
+.grid-clear-left
+  padding-left 0
+.grid-clear-right
+  padding-right 0

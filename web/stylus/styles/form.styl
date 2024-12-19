@@ -1,0 +1,80 @@
+// styles
+
+fieldset
+  border-width 1px 0px 0px 0px
+  border-color pale
+  padding-top 1
+  padding-bottom 1
+  padding-width 0
+  margin 0
+
+  > *:last-child
+    margin-bottom 0
+
+  &.clean
+    border 0
+
+  &.skinny
+    margin-bottom 0
+    padding-height 0
+
+  &.skinny-top
+    padding-height 0
+
+  &.sub-top
+    padding-top 0.5
+
+  &.sub-bottom
+    padding-bottom 0.5
+
+  &.boxed
+    border 1px solid pale
+    border-radius b4
+    border-padding-height f4 1px
+    padding-width f3
+
+input:disabled
+  background-color #eee
+  color #aaa
+
+legend, .legend
+  font-weight normal
+  padding 0 f4 0 0
+  font-size 1.5
+  color gray
+  font-family body-family
+  margin-top 0
+
+label
+  display block
+  font-weight bold
+  text-transform uppercase
+  font-size .75
+  &.option
+    font-weight normal
+    display inline
+    font-size 1
+    text-transform none
+  &.disabled
+    color neutral
+  &.line-option
+    margin-right 2
+    display inline
+
+.radio-set
+  input[type="radio"]
+  input[type="checkbox"]
+    float left
+    position relative
+    top b12
+    left b8
+
+  label.option
+    display block
+    margin-left f1
+
+::-ms-clear
+  display none
+
+.ng-submitted
+  color #ccc

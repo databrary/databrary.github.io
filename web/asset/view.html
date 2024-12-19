@@ -1,0 +1,37 @@
+<div class="download-popup">
+  <span ng-click="close()" class="button icon close"></span>
+
+  <div class="popup-file-info">
+    <h3>
+      <img class="popup-format-icon" ng-src="{{::asset.icon}}"/>
+      <span ng-bind="::asset.name"></span>
+    </h3>
+    <ul class="inline-block flat">
+      <li>
+        <span>Content from </span>
+        <a ng-href="{{::asset.slotRoute()}}">
+          <span ng-bind="::asset.container.displayName"></span>
+          <span ng-if="::asset.container.date" ng-bind="::' (' + asset.container.date + ')'"></span>
+        </a>
+      </li>
+      <li>File format: {{asset.format.extension}}</li>
+      <li ng-if="::!asset.segment.full && asset.segment.length">
+        <span>Duration: </span>
+        <span ng-bind="::asset.segment.length | timecode"></span>
+      </li>
+    </ul>
+  </div>
+  <asset-display asset="asset" exact></asset-display>
+  <div class="popup-cite" ng-if="::volume">
+    <cite-volume></cite-volume>
+  </div>
+  <div class="popup-classification">
+    <span class="icon release" ng-class="::page.constants.release[asset.release]"></span>
+    <span class="popup-classification-title" ng-bind="::'release.'+page.constants.release[asset.release]+'.title' | message"></span>: 
+    <span ng-bind="::'release.'+page.constants.release[asset.release]+'.description' | message"></span>.
+  </div>
+  <div message="download.warning"></div>
+  <a ng-href="{{::asset.permission? asset.downloadRoute(false): ''}}" ng-class="::{'disabled': !asset.permission}" class="button green" target="_self" tooltip="'excerpts.download' | message">
+    <span class="download icon"></span><span>Download</span>
+  </a>
+</div>

@@ -1,0 +1,275 @@
+// styles
+body
+  overflow auto
+  .main
+    margin-top toolbarheight
+    &.sandbox
+      margin-top toolbarheight+sandboxheight
+.title
+  padding-right 0
+  padding-left 0
+.toolbar
+  top 0
+  z-index 1000
+  position fixed
+  width 100%
+  box-shadow box-shadow-def
+  height toolbarheight
+  &.sandbox
+    height toolbarheight+sandboxheight
+
+.toolbar-sandbox
+  height sandboxheight
+  background-color orange51
+  padding b2
+  text-align center
+  font-size 0.8em
+
+
+.toolbar-main
+  height toolbarheight
+  line-height 1.5
+  background-color white
+  font-family heading-family
+  .row
+    position relative
+
+  .toolbar-icon
+  .toolbar-avatar
+    position relative
+    top b8
+    margin-left b3
+    margin-right b8
+
+.toolbar-site
+  font-line 1 1.5
+  margin-height 0
+  display inline-block
+
+  a
+    color black
+    display block
+    background url('/web/images/logo/databrary-nav.png') //ie-only
+    background url('/web/images/logo/databrary-nav.svg') no-repeat 0 center
+    background-size 114px 24px
+    height 1.5
+    @media screen and (max-width: 690px)
+      width 21px
+      margin-right f3
+    @media screen and (min-width: 691px)
+      width 114px
+      margin-right f2
+
+    &:link
+      color black
+
+    &:hover
+      color blue52
+
+    &.sandbox
+      background url('/web/images/logo/databrary-demo.svg') no-repeat 0 center
+      background-size 114px 24px
+
+.toolbar-nav
+  display inline-block
+  position relative
+  vertical-align top
+
+  &.no-angular
+    width 100%
+
+  & > ul
+    text-transform capitalize
+
+  ul
+  	display inline-block
+  	li
+  	  margin-right b4
+	    position relative
+
+	  ul
+	    position absolute
+	    display none
+	    opacity 0
+	    visibility hidden
+
+  ul li:hover
+  	ul
+      display block
+      opacity 1
+      visibility visible
+      background-color white
+      box-shadow 0px 2px 3px 0px black
+      border-bottom-left-radius b8
+      border-bottom-right-radius b8
+      padding 0
+      font-size b2
+      line-height b2
+      li
+      	margin 0
+      	padding b4
+      li:hover
+      	background-color green51
+      li:last-of-type
+      	border-bottom-right-radius b8
+      	border-bottom-left-radius b8
+
+  a
+    position relative
+    top -b24
+    font-line .75 .75
+    @media screen and (max-width:350px)
+      font-line .625 .75
+  a.button
+    text-transform lowercase
+
+    .icon
+      position relative
+      top b12
+
+.toolbar-avatar
+  display inline-block
+  border 1px solid gray
+  size b34
+
+.toolbar-nav,
+.toolbar-user,
+.toolbar-hover
+  a
+    color black
+
+    &:hover
+      color gray
+
+      .avatar
+        border-color pale
+
+    &.toolbar-superuser
+      color red53
+
+      &:hover
+        color red51
+
+      &.on
+        color green53
+
+        &:hover
+          color green51
+
+img.toolbar-hover-avatar
+  width 96px
+
+.toolbar-user
+  font-size 0.8em
+  text-align right
+  position relative
+  float right
+  padding-right 1.8%
+
+  form
+    display inline-block
+
+.toolbar-search
+  display inline-block
+  position relative
+
+.toolbar-hover
+  position absolute
+  top b1*1.5
+  right b1
+  background-color white
+  border-radius 0 0 b6 b6
+  box-shadow 0 2px 3px 0 black
+  padding f2
+  line-height 1
+
+.toolbar-notifications-panel
+  min-width 300px
+  max-width 330px
+  max-height 300px
+  overflow-y auto
+  overflow-x visible
+
+.toolbar-user-menu
+  text-align right
+  width inherit
+  float left
+
+  ul
+    padding-left 0
+    margin-bottom 0
+
+.toolbar-password-form
+  border-top 1px solid gray
+  padding-top f4
+  margin-top f4
+
+  .password
+    margin-bottom 0
+
+.user-icon
+  float right
+  padding 3px
+
+.search-form
+  padding-top 1
+  padding-bottom 2
+
+.search-form-search
+  input[type="search"]
+    max-width 16
+    margin-bottom 0
+    padding b2
+
+    @media screen and (max-width: 550px)
+      width 4
+    @media screen and (min-width: 551px)
+      width 7
+
+.hover-nav-bg
+  background-color neutral51
+  @media screen and (min-width: 370px)
+  	height 1.5
+
+.modal
+  display none
+  position fixed
+  z-index 1
+  left 0
+  top 0
+  width 100%
+  height 100%
+  overflow auto
+  background-color rgb(0,0,0)
+  background-color rgba(0,0,0,0.7)
+
+.modal-content
+  background-color #fefefe
+  margin 15% auto
+  padding 20px
+  border 1px solid #888
+  width 300px
+
+.close
+  color #555
+  float right
+  font-size 28px
+  font-weight bold
+
+.close:hover,
+.close:focus
+  color black
+  text-decoration none
+  cursor pointer
+
+.modal .validator-message.error
+  position relative
+  margin-top 8px
+
+.modal .validator-input .validator-indicator.show.invalid
+  position relative
+  width 16px
+  height 16px
+  margin-top -43px
+  float right
+  margin-right 0

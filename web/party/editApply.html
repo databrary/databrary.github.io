@@ -1,0 +1,56 @@
+<ng-form name="partyEditApplyForm">
+  <scroll-float>
+    <fieldset class="clean">
+      <auth-search-form placeholder-text="{{::'auth.search.apply.legend' | message}}" class="col-desktop-5 col-tablet-5 col-mobile-6"></auth-search-form>
+    </fieldset>
+  </scroll-float>
+  <fieldset ng-show="partyEditApplyForm.data.length > 0">
+    <legend message="auth.apply.legend"></legend>
+    <article ng-repeat="auth in partyEditApplyForm.data track by auth.party.id" id="auth-{{::auth.party.id}}" class="permission-auth cf foot pef anchor">
+      <div ng-if="!auth.new" class="col">
+        <div class="col-desktop-1 col-tablet-1 hide-mobile">
+          <figure class="figure-avatar" ng-class="::{inst: auth.party.institution}">
+            <img ng-src="{{::auth.party.avatarRoute()}}">
+          </figure>
+        </div>
+
+        <div class="col-desktop-14 col-tablet-8 col-mobile-6">
+          <div class="permission-heading">
+            <a ng-href="{{::auth.party.route()}}" class="permission-auth-username" ng-bind="::auth.party.name"></a><wbr>
+            <span class="permission-auth-email" ng-if="::!!auth.party.email" ng-bind="::auth.party.email"></span>
+            <span ng-if="::!(auth.member || auth.site)" message="auth.pending" class="permission-auth-pending"></span>
+          </div>
+
+          <div ng-if="::auth.member || auth.site">
+            <div class="permission-auth-heading">
+              <span message="auth.site.view"></span>&nbsp;<span ng-bind="::'auth.site.title' | message:'their'"></span>
+            </div>
+            <div class="permission-auth-site">
+              <strong message="auth.site.{{page.constants.permission[auth.site]}}.title"></strong>: 
+              {{'auth.site.'+page.constants.permission[auth.site]+'.description' | message:'their'}}
+            </div>
+          </div>
+
+          <div ng-if="::auth.member">
+            <div class="permission-auth-heading">
+              <span message="auth.member.view"></span>&nbsp;<span ng-bind="::'auth.member.title' | message:'their'"></span>
+            </div>
+            <div class="permission-auth-member">
+              <strong message="auth.member.{{page.constants.permission[auth.member]}}.title"></strong>: 
+              {{'auth.member.'+page.constants.permission[auth.member]+'.description' | message:'their'}}
+            </div>
+          </div>
+
+          <div ng-if="::auth.member || auth.site">
+            <div class="permission-auth-heading" message="auth.expiration.title"></div>
+            <div ng-bind="::auth.expires | date:'longDate'"></div>
+            <div ng-if="::!auth.expires" message="auth.expiration.none"></div>
+          </div>
+        </div>
+      </div>
+      <div ng-if="auth.new" class="row">
+        <auth-apply-form></auth-apply-form>
+      </div>
+    </article>
+  </fieldset>
+</ng-form>

@@ -1,0 +1,528 @@
+// styles
+
+body
+  font-family body-family
+  strong
+    font-family bold-family
+
+a, h1, h2, h3, h4, h5, h6, p, dl, ol, ul,
+blockquote, pre, img, figure, table, tr, th, td, button
+  transition transition
+
+  &.intransitive
+    transition none !important
+
+// foot margin
+
+p
+ul
+ol
+dl
+table
+figure
+embed
+audio
+video
+canvas
+pre
+  margin 0 0 1
+
+// figure, figcaption, img
+
+figure
+  max-width 100%
+
+  img
+    display block
+
+  *
+    width 100%
+    height auto
+
+figcaption
+  border-padding-height f4 2px
+  border-padding-top f4 3px
+  padding-width f4
+  font-line .75 (2/3)
+  font-style italic
+  border-top 1px solid gray
+  color gray
+
+img
+  max-width 100%
+  height auto
+
+  &.line
+    height 1em
+    width auto
+    position relative
+    top (1em / 8)
+
+// u, b, strong, i, em
+
+u, .u
+  text-decoration underline
+
+b, .b
+strong, .strong
+  font-weight bold
+
+i, .i,
+em, .em
+  font-style italic
+
+// a
+
+a
+  text-decoration none
+  cursor pointer
+a:not(.button)
+  link-color green
+
+  &.red
+    link-color red
+
+  &.orange
+    link-color orange
+
+  &.yellow
+    link-color yellow
+
+  &.green
+    link-color green
+
+  &.blue
+    link-color blue
+
+  &.purple
+    link-color purple
+
+// h1, h2, h3, h4, h5, h6
+
+h1
+h2
+h3
+h4
+h5
+  font-weight normal
+  font-family heading-family
+
+h1
+  font-line 3 2.5
+  margin 0
+
+h2
+  font-line 2.5 2
+  margin 1 0 0
+
+h3
+  font-line 2.25 2
+  margin 1 0 0
+
+h4
+  font-line 2 1.5
+  margin .5 0 0
+
+h5
+  font-line 1.5 1
+  margin .5 0 0
+
+
+h6
+  font-weight normal
+  text-align center
+  text-transform uppercase
+  letter-spacing (1em/16)
+  font-line .75
+  margin 2 0
+
+
+//
+
+hr
+  color = pale
+  border-width 0
+  border-bottom 1px solid color
+  width 100%
+  padding 0
+  margin-top f3
+  border-margin-bottom f23 1px
+
+// code, kbd, samp, pre
+
+code
+kbd
+samp
+pre
+  color = orange
+  font-family mono-family
+  font-size .9
+  background mix(color, white, 15%)
+  border-color color
+  border-style solid
+
+
+code
+kbd
+samp
+  border = 1px
+  line-height (2/3)
+  border-width border 0
+  // border-padding-height border f8
+  padding-width f4
+
+
+pre
+  border = 2px
+  border-width border 0
+  // border-padding-height border f2
+  padding-width f2
+
+
+// ol, ul, li
+
+ol
+ul
+  position relative
+  margin-bottom 1.5
+  list-style none
+
+  > li
+    &:before
+      position relative
+      float left
+
+  ul
+  ol
+    margin-bottom 0
+
+ol
+  counter-reset li
+
+  > li
+    &:before
+      content counter(li) "."
+      counter-increment li
+      text-align right
+      width b1
+      top 1px
+      left -b4
+      margin-left -b1
+
+ul
+  > li
+    &:before
+      content ""
+      background-color green
+      border-radius b1
+      size b4
+      top b4 + b6
+      left -b6
+      margin-left -b3
+
+ol
+ul
+  &.comma,
+  &.semicolon
+    margin-bottom f1
+    padding-left 0
+
+    > li
+      display inline
+      margin 0
+      padding 0
+
+      &:before
+        background-color inherit
+        position inherit
+        float none
+        display inline
+        margin 0
+        padding 0
+
+      &:first-child
+        &:before
+          content ""
+
+  &.semicolon > li:before
+    content "; "
+
+  &.comma >li:before
+    content ", "
+
+  &.inline-block
+    display inline-block
+    margin-bottom 0
+    padding-left 0
+
+    > li
+      display inline-block
+
+  &.inline
+    display inline
+    margin-bottom 0
+    padding-left 0
+
+    > li
+      display inline
+
+  &.flat
+    > li
+      &:before
+        content: none
+        display: none
+
+  &.striped
+    padding-left 0
+    > li:nth-child(odd)
+      background-color neutral51
+
+// dl, dt, dd
+
+dl
+  > dt
+    font-style normal
+    font-weight bold
+    &.normal-weight
+      font-weight normal
+
+  > dd
+    margin-bottom 0
+
+  &.flat
+    clearfix()
+
+    > dt
+      width 33%
+      text-align right
+      float left
+      padding-right f1
+      clear both
+
+    > dd
+      width 67%
+      float right
+      margin-left 0
+
+  &.comma
+    clearfix()
+
+    > dt
+      display inline-block
+      float left
+      clear left
+      margin-right f8
+      text-transform capitalize
+
+      &:after
+        content ":"
+
+      & + dd
+        &:before
+          content none
+
+    > dd
+      margin-left 0
+      display inline
+
+      &:before
+        content ', '
+
+  &.inline-block
+    display inline-block
+    margin-bottom 0
+    padding-left 0
+
+  &.inline
+    display inline
+    margin-bottom 0
+    padding-left 0
+
+// quotes
+
+q
+  quotes '\201C' '\201D' '\2018' '\2019' '\201C' '\201D' '\2018' '\2019'
+  quote-double()
+
+  q
+    quote-single()
+
+    q
+      quote-double()
+
+      q
+        quote-single()
+
+cite
+q[cite]
+  font-style italic
+  color purple
+
+  &.u
+    text-decoration underline
+    font-style normal
+
+blockquote
+  color = purple
+  margin 2 2.5 1.5
+
+  &:before
+  &:after
+    font-size 5
+    color color
+    position relative
+    line-height 0
+
+  &:before
+    content open-quote
+    top .25em
+    left -.425em
+    float left
+
+  &:after
+    content no-close-quote
+
+  p
+    margin-bottom f2
+
+  cite
+    display block
+    color color
+    border-bottom 0
+    text-align right
+
+    &:before
+      color color
+      content "\2014 \0020"
+
+// sub, sup
+
+sub
+sup
+  font-size 50%
+  line-height 0
+  position relative
+  padding 0 1px
+
+
+sub
+  vertical-align bottom
+  bottom .5em
+
+
+sup
+  vertical-align top
+  top 1em
+
+//
+
+small, .small
+  font-line .75
+  &.reminder
+    color blue
+  &.attention
+    color yellow
+  &.warning
+    color red
+
+// ins, del
+
+ins
+del
+  color white
+
+ins
+  color green
+  text-decoration underline
+
+
+del
+  color red
+  text-decoration line-through
+
+// s, mark
+
+s
+mark
+  font-line .9 (2/3)
+  border-width 0
+  border-radius b8
+  padding-width f4
+  text-decoration none
+  // if display block, line-height 1.
+
+
+mark
+  color = green
+  background-color mix(color, white, 15%)
+  color color
+
+s
+  color = red
+  background-color mix(color, white, 15%)
+  color color
+
+span
+  &.attention
+    background-color yellow51
+    border 1px yellow51 solid
+    padding-left b8
+    padding-right b8
+    border-radius b8
+    width initial
+  &.reminder
+    color blue
+
+// dfn, var, abbr
+
+dfn
+var
+abbr
+abbr[title]
+  color = yellow
+  border = 1px
+  font-line .9 (2/3)
+  border-width border 0
+  border-style solid
+  // border-padding-height border f8
+  padding-width f4
+  text-decoration none
+  font-style normal
+  background-color mix(color, white, 15%)
+  border-color color
+
+// time, address
+
+address
+  display block
+  font-style normal
+
+// p
+
+p
+  @media screen and (min-width: grid-mobile-width)
+    text-align justify
+
+  small
+    line-height f2
+
+// .sep
+
+.sep
+  color gray
+  padding-width f8
+
+.white-space-pre
+  white-space pre-wrap
+
+.status
+  font-style oblique
+
+.center
+  text-align center
+
+.date-time
+  color #686868
+  font-size 0.75em
+  &.expired
+    color red

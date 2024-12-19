@@ -1,0 +1,132 @@
+// styles
+
+.tags-item
+  font-line 1 1.25
+  height b1+b4
+  border-radius b1
+  border 1px solid pale
+  padding-width f3
+  .tag-name
+    position relative
+    float left
+    height b1
+    top -b12
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+  &:before
+    display none
+
+.panel-tags-list
+  form
+    display inline
+
+.panel-tags-items
+  padding 0
+  display inline
+
+.panel-tags-item
+  display inline-flex
+  margin-right f2
+  margin-bottom b3
+
+  &.active
+    background-color blue51
+
+  .panel-tag-controls
+    position relative
+    float left
+    margin-left f4
+
+  .panel-tag-vote
+    arrow = b4
+    able = orange
+    hover = orange42
+    active = orange52
+    disabled = green
+    position relative
+    margin 0
+    padding 0
+    background transparent
+    line-height b2
+    box-shadow none
+
+    &.null
+      color transparent
+      height 1px
+      width 9px
+      border 2px solid able
+      margin-top 11px
+      margin-bottom 5px
+
+      &:hover
+        border-color hover
+
+      &:active
+        border-color active
+
+      &[disabled]
+        border-color disabled
+
+    &.up
+      hide-text()
+      border-color transparent
+      border-width arrow
+      border-style solid
+      top -10px
+      border-bottom arrow solid able
+
+      &:hover
+        border-bottom arrow solid hover
+
+      &:active
+        border-bottom arrow solid active
+
+      &[disabled]
+        border-bottom arrow solid disabled
+
+    &[disabled]
+      &:hover
+        background-image none
+
+    &:focus
+      outline 0
+
+//tagAdd
+.panel-tags-new-form
+  position relative
+
+  input
+    z-index 100
+    position relative
+    width 7
+    border none
+    border-radius b1
+    box-shadow none
+    background none
+    margin 0
+    height b1+b6
+  input:focus
+    padding-top 0
+    padding-bottom 0
+
+.keyword
+  border 1px solid orange52
+  &.active
+    background-color orange51
+
+.panel-tags-legend
+  display inline-block
+  margin-right b3
+
+.panel-tags-item.legend
+  font-weight bold
+  margin-right b3
+  border-width 2px
+  min-width 30px
+  display inline
+
+.tag-add
+  vertical-align baseline
+  display inline-block
+  padding 0

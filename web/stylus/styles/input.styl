@@ -1,0 +1,126 @@
+// styles
+input,
+button,
+textarea,
+select
+  &:focus
+    outline 0
+
+textarea
+  resize vertical
+  height auto
+  overflow-x hidden
+  overflow-y auto
+  min-height 6
+
+select[multiple],
+select[size]
+  min-height 6
+  height auto
+
+input,
+select
+  line-height 1
+
+input,
+textarea,
+select
+  color black
+  font-family body-family
+  border-padding-height 2px 1px solid gray
+  padding-width f3
+  border-radius b8
+  width 100%
+  border 1px solid gray
+  margin-bottom f2
+  transition border, outline, color, background, padding, margin, box-shadow .15s linear
+  box-shadow inset-shadow
+  placeholder gray
+
+  &:focus:not(.no-focus)
+    border-color green
+    input-shadow green
+
+    &.ng-invalid:not(.ng-pristine)
+      border-color red
+      input-shadow red
+
+  &.mini
+    border-padding-bottom f12 1px solid gray
+    font-line f90 f34
+    padding-width f8
+
+  &.half
+    width 50%
+
+  &.third
+    width 100% / 3
+
+  &.quarter
+    width 25%
+
+  &.width-auto
+    width auto
+
+input
+  &[type="search"]
+    border none
+    box-shadow none
+    background-color #eee
+    padding-width f2
+    &:focus
+      background-color green51
+
+  &[type="file"]
+    display block
+    background-color white
+    border none
+    box-shadow none
+
+  &[type="radio"],
+  &[type="checkbox"]
+    margin 0 f4 0 0
+    line-height inherit
+    width auto
+    display inline-block
+    box-shadow none
+
+    &:focus
+      box-shadow outset-shadow
+      outline 0
+  &[type="text"],
+  &[type="url"],
+  &[type="email"],
+  &[type="password"]
+    height 31px
+
+select
+  padding-bottom f4
+  &.select-clear-style
+    appearance none
+    background url('/web/icons/sort-desc.png') white right no-repeat
+    padding-right b23
+    padding-height 0
+
+input,
+select,
+textarea,
+option,
+fieldset
+  &:disabled
+    border-color pale
+    color pale
+    cursor default
+
+th, td
+  input, select
+    margin-bottom 0
+
+input::-webkit-calendar-picker-indicator
+  display: none
+
+.login-view
+  input
+    margin-bottom 1
+    height 1.5
+    font-size 1

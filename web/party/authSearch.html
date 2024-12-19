@@ -1,0 +1,6 @@
+<ng-form name="authSearchForm" class="auth-search-form" autocomplete="off" isolate>
+  <validator name="name" noclientval>
+  	<label for="authorizer-search" class="accessible-hidden">search authorizer</label>
+    <input-completer input-name="name" input-id="authorizer-search" ng-model="authSearchForm.nameVal" completer="authSearchForm.search($input)" placeholder="{{authSearchForm.placeholderText}}"></input-completer>
+  </validator>
+</ng-form>

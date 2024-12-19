@@ -1,0 +1,42 @@
+<ng-form name="volumeEditAccessForm">
+  <button ng-click="volumeEditAccessForm.saveAll()" class="green" ng-disabled="volumeEditAccessForm.$pristine || volumeEditAccessForm.$invalid || volumeEditAccessForm.$submitted">Save</button>
+  <button ng-click="volumeEditAccessForm.resetAll()" ng-disabled="volumeEditAccessForm.$pristine || volumeEditAccessForm.$submitted" class="foot">Revert</button>
+
+  <fieldset class="sub-bottom radio-set volume-edit-access-radioset" ng-disabled="!page.models.Login.checkAuthorization(page.permission.EDIT)" ng-form="accessPresetForm">
+    <legend class="access-legend" message="access.preset.legend"></legend>
+    <div class="col message message-yellow message-content" ng-if="::!page.models.Login.checkAuthorization(page.permission.EDIT)" message="access.preset.restricted"></div>
+    <div id="preset" ng-repeat="perms in page.constants.accessPreset track by $index">
+      <input type="radio" ng-model="volumeEditAccessForm.preset" name="access-preset" ng-value="$index">
+      <label class="option">
+        <span class="icon" ng-class="::'access'+$index"></span> 
+        <span message="access.preset.title{{::$index}}" tooltip="'access.preset.select{{::$index}}' | message"></span>
+      </label>
+    </div>
+    <div class="col message message-yellow message-content" ng-if="volumeEditAccessForm.preset===1">Only the volume title, description, public excerpts, collaborators (if any), citation information, file summary table, keywords, and comments will be shared. Go to the Overview tab to update.</div>
+    <div class="col message message-yellow message-content" ng-if="volumeEditAccessForm.preset===2">All volume information, including data files, will be shared. (Access to individual files is still determined by file-level settings.)</div>
+  </fieldset>
+
+    <div class="foot-15x i" ng-if="volume.accessStaff">
+      <span ng-bind="'access.'+page.constants.permission[volume.accessStaff] | message:'Databrary staff'"></span>. 
+      You can change this on the <span message="wizard.volume-edit-assist.name"></span> tab.
+    </div>
+
+  <fieldset class="margin-more">
+    <legend class="access-legend" message="access.grant.legend"></legend>
+    <scroll-float>
+      <fieldset class="clean" ng-class="scrollFloating? '' : 'skinny-top clean foot'">
+        <div class="col-desktop-5 col-tablet-4 col-mobile-3" ng-show="scrollFloating">
+          <button ng-click="volumeEditAccessForm.saveAll()" class="green" ng-disabled="volumeEditAccessForm.$pristine || volumeEditAccessForm.$invalid || volumeEditAccessForm.$submitted">Save</button>
+          <button ng-click="volumeEditAccessForm.resetAll()" ng-disabled="volumeEditAccessForm.$pristine || volumeEditAccessForm.$submitted">Revert</button>
+        </div>
+        <access-search-form ng-class="scrollFloating ? 'col-desktop-6 col-tablet-5 col-mobile-3' : 'col-desktop-14 col-tablet-8 col-mobile-6'" ></access-search-form>
+      </fieldset>
+    </scroll-float>
+    <article ng-repeat="access in volumeEditAccessForm.data | orderBy:['-individual','sort'] track by access.party.id" id="access-{{::access.party.id}}" class="access-grant cf anchor">
+      <div class="row">
+        <access-grant-form class="access-grant-form"></access-grant-form>
+      </div>
+    </article>
+  </fieldset>
+
+</ng-form>

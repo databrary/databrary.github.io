@@ -1,0 +1,85 @@
+<ng-form name="volumeAssist">
+  <fieldset class="clean skinny-top volume-assist-enable">
+    <div>
+      <input type="checkbox" ng-model="volumeAssist.staff" ng-disabled="volume.accessStaff===undefined" ng-change="setStaff(volumeAssist.staff)"/>
+      I want help. Checking this box gives Databrary read/write access to this volume. You may uncheck this option at any time.
+    </div>
+  </fieldset>
+
+  <div ng-if="volume.accessStaff">
+  <fieldset flow-init="flowOptions"
+    flow-file-added="fileAdded($file, $event)" 
+    flow-file-success="fileSuccess($file)" 
+    flow-file-progress="fileProgress($file)" 
+    flow-file-error="fileError($file, $message)" 
+    form-ctrl="volumeAssist.uploads" 
+    mouse-drag-region>
+
+    <legend>Upload files</legend>
+    <div class="foot">You can upload videos and other files in bulk to help us get you started. See our <a ng-href="{{::page.router.helpFormats()}}" target="_blank">list of accepted file types</a>.</div>
+    <div flow-drop flow-btn flow-drag-enter="dropClasses['over-zone'] = true" flow-drag-leave="dropClasses['over-zone'] = false" class="volume-assist-drop file-drop foot" ng-class="dropClasses">
+      <span class="icon b1 add"></span>
+      <span class="dropzone-message" message="asset.add-drop.new"></span><br>
+      <span class="dropzone-message">Please upload the following:</span>
+
+      <div class="volume-assist-drop-suggestions">
+        <ul>
+          <li>
+            <small>Videos (required)</small>
+          </li>
+          <li>
+            <small>Spreadsheets used to track data collection (e.g., test date, participant demographics, groups, conditions, tasks, exclusion or attrition information, location, so that we can label your data accurately)</small>
+          </li>
+          <li>
+            <small>Study protocol, description of procedures and tasks (will help us to organize your data)</small>
+          </li>
+          <li>
+            <small>Blank video sharing release form (will help us to advise you about Databrary permission levels)</small>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+    <div ng-if="assets.length || uploads.length">
+      <strong>Uploaded Files </strong>
+      <span>(Files listed here won't show up in your spreadsheet until after our staff has made contact)</span>
+      <div class="volume-assist-list-container">
+        <upload-progress progress-value="progress" progress-text="'Overall Progress'" class="upload-progress-info"></upload-progress>
+        <ul class="striped flat volume-assist-list">
+          <li ng-repeat="upload in uploads" class="volume-assist-list-item">
+            <div class="volume-assist-uploading">
+              <upload-progress class="upload-progress-info" progress-value="upload.progressValue"></upload-progress>
+              <a ng-click="cancel(upload)" class="icon trash button volume-assist-item-remove"></a>
+            </div>
+            <span ng-bind="::upload.name"></span>
+          </li>
+          <li ng-repeat="asset in assets" class="volume-assist-list-item">
+            <a ng-click="remove(asset)" class="icon trash2 button volume-assist-item-remove"></a>
+            <img ng-src="{{asset.icon}}" ng-class="'hint-format-'+asset.format.extension">
+            <span ng-bind="::asset.name"></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </fieldset>
+
+  <ng-form name="volumeAssist.mail">
+    <legend>Contact Databrary</legend>
+    <div class="foot">Provide us additional information about your study. Answer the questions below and submit the form. Databrary staff will be in touch. </div>
+    <div ng-repeat="q in ::volumeAssist.questions" class="foot-2">
+      <div ng-bind-html="::q.text"></div>
+      <label ng-repeat="o in ::q.options||['Yes','No']" class="line-option">
+        <input type="radio" name="{{::q.name}}" ng-value="::o" ng-model="q.answer">{{::o}}
+      </input>
+    </div>
+
+    <div>
+      <div>Any other information you wish to provide about your data goes here.</div>
+      <textarea ng-model="volumeAssist.additional"></textarea>
+    </div>
+
+    <button ng-click="volumeAssist.submit()" class="green" ng-disabled="volumeAssist.mail.$pristine || volumeAssist.mail.$invalid || volumeAssist.mail.$submitted">Submit</button>
+  </ng-form>
+  </div>
+
+</ng-form>

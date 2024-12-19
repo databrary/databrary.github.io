@@ -1,0 +1,680 @@
+html 
+  overflow-x: hidden;
+.logo-white
+  width 392px
+  height 80px
+  @media screen and (max-width:grid-mobile-width)
+    width 200px
+    height 41px
+    background-size 200px 41px
+  background-size 392px 80px
+  margin 0 auto 10px auto
+  background-image url(/web/images/logo/databrary-nav.svg)
+
+.tag-flip:first-of-type
+  display none
+
+.heading
+  color #2c3e51
+  font-size 1.4em
+  margin 10px auto 20px auto
+  max-width 800px
+  line-height 1.3
+  font-weight normal
+
+.home-bigbuttons
+  background-color #2c3e51
+  background linear-gradient(#2c3e51, #334)
+  position relative
+  width 100%
+  margin-left 0
+  margin-right 0
+  margin-bottom 0
+  padding 20px 20px 10px 20px
+  text-align center
+  color white
+  &.white
+    background-color #fff
+    background #fff
+    color #333
+    .arrow-container
+      margin-top 0
+  ul, p
+    margin-bottom 5px
+  p
+    line-height 25px
+    strong
+      line-height 43px
+
+.login-register
+  text-align center
+  margin 40px 0 50px 0
+  a 
+    display inline-block
+    vertical-align top
+
+.register-button, .login-button
+  width 100px
+  height 100px
+  font-size 1.2em
+  font-weight bold
+  font-family Arial
+  border none
+  margin 15px 0
+  text-align center
+  display inline-block
+  border-radius 50%
+  margin 0 20px
+
+.register-button
+  background-color #b2ddd4
+  color #333
+  &:hover
+    background-color #7dc6b6
+
+.login-button
+  background-color #fadbc7
+  color #333
+  &:hover
+    background-color #f7ab7a
+
+.home-max-width
+  margin 0 auto
+  max-width 1100px
+
+.four-recs > a
+  margin 0 20px 20px 0
+  width 100%
+  max-width 500px
+  display inline-block
+  vertical-align top
+
+.green-top
+  padding 15px
+  border-radius 3px
+  color #333
+  vertical-align top
+  text-align left
+  border-top 3px solid #b2ddd4
+  position relative
+  &:hover
+    cursor pointer
+    background #f2f2f2
+  &:nth-child(even):after, &:nth-child(odd):before
+    content ""
+    width 14px
+    height 14px
+    background #97d1c5
+    border-radius 5px
+    -moz-border-radius 5px
+    -webkit-border-radius 50%
+    position absolute
+    top -8px
+  &:nth-child(even):after
+    right 0
+  &:nth-child(odd):before
+    left 0
+  strong
+    font-size 1.4em
+    font-weight normal
+
+.arrow-container
+  display block
+  margin 0 auto
+  width 64px
+
+.arrow-a
+  text-align center
+  display block
+  width 74px
+  &:hover
+    .arrow-down
+      border 0.5em solid #7fdfff
+      &:after
+        border-top 0.5em solid #7fdfff
+        border-right 0.5em solid #7fdfff
+
+.arrow-down
+  display inline-block
+  width 4em
+  height 4em
+  border 0.5em solid #87BFD1
+  border-radius 50%
+  &:after
+    content ''
+    display inline-block
+    margin-top 0.6em
+    width 1.4em
+    height 1.4em
+    border-top 0.5em solid #87BFD1
+    border-right 0.5em solid #87BFD1
+    -moz-transform rotate(135deg)
+    -webkit-transform rotate(135deg)
+    transform rotate(135deg)
+
+.stream
+  li
+    transition: all 1s ease-in-out;
+    &:before
+      background-color transparent
+  .block
+    border 1px solid gray
+    &.photo
+      background-color #b2ddd4
+    &.promo
+      &.light
+        &.hover:hover
+          background-color #7dc6b6
+
+.stream .block, .stream .block.social.light
+  background-color #fff
+
+.home-tags
+  margin-top 100px
+
+.stream .block.features::before, .stream .block.news::before
+  background-color rgba(255, 255, 255, 0)
+
+.stream-viewport:not(.mobile) .stream .block.features:hover::before, .stream-viewport:not(.mobile) .stream .block.news:hover::before
+  background-color rgba(255, 255, 255, 0)
+
+.stream .block.promo.dark.hover:hover, .stream .block.social.dark.hover:hover
+  background-color rgba(247, 171, 122, 1)
+
+.stream .block span, .stream .block span a
+  color #333
+
+@font-face
+  font-family 'icomoon'
+  font-weight normal
+  font-style normal
+  src url('/web/icons/fonts/icomoon.eot')
+  src url('/web/icons/fonts/icomoon.eot') format('embedded-opentype'), url('/web/icons/fonts/icomoon.woff') format('woff'), url('/web/icons/fonts/icomoon.ttf') format('truetype')
+
+.stream-nav
+  &.left
+    &::before
+      font-family icomoon
+      font-size 2.666666666666667rem
+      position relative
+      top calc(50% - 1rem)
+      left 5.666666666666667rem
+      content '\e81c'
+      color #405950
+  &.right
+    &::before
+      font-family icomoon
+      font-size 2.666666666666667rem
+      position relative
+      top calc(50% - 1rem)
+      right -1.666666666666667rem
+      content '\e811'
+      color #405950
+.stream .asset-display
+  padding 10px
+  background-color #fff
+
+.stream .asset-display video
+  @media screen and (max-width:grid-mobile-width)
+    max-width 90%
+
+.video-container
+  padding 10px
+
+.asset-display
+  &:hover
+    cursor pointer
+
+.white-tile
+  background-color #fff !important
+  .video-container
+    padding 20px 0
+  .asset-display
+    background-color #fff
+.stream .ord-1
+  width 600px
+  height 442px
+  @media screen and (max-width:grid-mobile-width)
+    width 447.3px
+    height 309.4px
+.stream .ord-2
+  width 231px 
+  height 442px
+  @media screen and (max-width:grid-mobile-width)
+    width 161.7px
+    height 309.4px
+.stream .ord-3
+  width 462px
+  height 442px
+  @media screen and (max-width:grid-mobile-width)
+    width 323.4px
+    height 309.4px
+.stream .ord-4
+  height 217px
+  background-color #fff !important
+  @media screen and (max-width:grid-mobile-width)
+    height 151.9px
+h2
+  &.header
+    padding 0px 15px
+    text-align center
+    margin-bottom 40px
+    font-weight bold
+    font-size 2.7em
+    @media screen and (max-width:grid-mobile-width)
+      font-size 2em
+
+div
+  &.p-container
+    padding 40px 0 100px 0
+    background-color #fff
+
+.p-container
+  .header
+    margin-bottom 40px
+  .stream-nav
+    top 150px !important
+    @media screen and (max-width:grid-mobile-width)
+      top 70px !important
+
+.stream-viewport
+  position relative
+  overflow hidden
+  width 100%
+  &.mobile
+    overflow scroll
+    -webkit-overflow-scrolling touch
+  *
+    box-sizing border-box
+    text-rendering optimizeLegibility
+    -webkit-font-smoothing antialiased
+    font-smoothing antialiased
+  .citation
+    font-size 1rem
+    text-align left
+    margin 0 -1px 0 -1px
+    color #333
+    display none
+    padding 10px
+    background-color #fff
+    position relative
+    border 1px solid gray
+  .full-height:hover .citation 
+    display block
+  &:not(.mobile)
+    .stream-viewport
+      &:not(.mobile)
+        .stream
+          .block
+            &.photo
+              a
+                display block
+                width 100%
+                height 100%
+                cursor pointer
+    .stream
+      .block
+        &.promo
+          &.hover:hover
+            &.hover::before
+              background-image url('https://www.nyu.edu/etc/designs/nyuseventy/clientlib/assets/img/promo_corner_white.svg')
+        &.news
+          &.hover:hover
+            &.hover::before
+              background-color rgba(0, 0, 0, .55)
+              background-image url('https://www.nyu.edu/etc/designs/nyuseventy/clientlib/assets/img/promo_corner_white.svg')
+
+.stream
+  box-sizing border-box
+  width 1000rem
+  height 31.33333333333333rem
+  transition all 300ms ease-in-out
+  @media screen and (max-width:grid-mobile-width)
+    height auto
+  margin 0
+  padding 0
+  list-style none
+  text-rendering optimizeLegibility
+  -webkit-font-smoothing antialiased
+  font-smoothing antialiased
+  .asset-display video
+    width 100% !important
+  .full-height
+    padding 0
+    .asset-display
+      padding 0
+      video
+        height 440px
+        background-color #000
+      img
+        max-height 440px
+
+  .photo
+    span
+      display none !important
+  .block
+    font-size 1.33333333333333rem
+    line-height 1.33333333333333rem
+    position relative
+    display inline-block
+    float left
+    margin-right .4rem
+    color #fff
+    background-color #fff
+    background-repeat no-repeat
+    background-position 50%
+    background-size cover
+    &.features
+      width calc(100% - .4rem)
+      height 100%
+      &>a
+        display block
+      span
+        font-size 2.666666666666667rem
+        font-weight 600
+        line-height 3.33333333333333rem
+        position absolute
+        top 42.5%
+        left 1.666666666666667rem
+        display block
+        width auto
+        height auto
+        &::before
+          position absolute
+          top -1.33333333333333rem
+          left .0666666666666667rem
+          display block
+          width 5.0666666666666667rem
+          height .4rem
+          content ''
+          background-color #fff
+        a
+          line-height 3.33333333333333rem
+    &.double-h
+      width calc(100% - .4rem)
+      height calc(50% - .2rem)
+    &.double-v
+      width calc(100% - .4rem)
+      height 100%
+    &.single
+      height calc(50% - .2rem)
+    &.promo
+      &.dark
+        background-color #f7c9ab
+      &.light
+        background-color #b2ddd4
+    &.social
+      text-indent 0
+      background-image none
+      &.dark
+        background-color #f7c9ab
+      &.light
+        background-color #25aae1
+    span
+      font-weight 600
+      position absolute
+      z-index 1
+      top 0
+      left 0
+      display table
+      width 100%
+      height 100%
+      a
+        display table-cell
+        overflow hidden
+        max-height 100%
+        padding 0
+        vertical-align middle
+        text-decoration none
+  .col-1
+    .block
+      margin-bottom .4rem
+      &.single
+        width calc(100% - .4rem)
+      &:last-child
+        margin-bottom 0
+  .col-2
+    .block
+      margin-bottom .4rem
+      &.single
+        width calc(50% - .4rem)
+    & > *
+      margin-bottom 0
+  li
+    display inline-block
+    float left
+    height 31.33333333333333rem
+    margin-top 0
+
+.stream .block.news.hover::before,
+.stream .block.promo.hover::before
+  position absolute
+  top 0
+  left 0
+  display block
+  width 100%
+  height 100%
+  content ''
+  cursor pointer
+  background url('https://www.nyu.edu/etc/designs/nyuseventy/clientlib/assets/img/promo_corner_transparent_white.svg') no-repeat bottom right
+  background-size 2.666666666666667rem
+
+.stream .block span,
+.stream .block span a
+  color #333
+
+.stream .block.promo span,
+.stream .block.news span,
+.stream .block.social span
+  width 100%
+  padding .666666666666667rem 5%
+  text-align center
+  vertical-align middle
+
+.stream .block.promo span,
+.stream .block.promo span a
+  font-size 1.2rem
+  font-weight 600
+  line-height 200%
+  @media screen and (max-width:grid-mobile-width)
+    font-size: 0.9rem;
+    line-height: 130%;
+
+.stream .block.news span,
+.stream .block.news span a,
+.stream .block.social span,
+.stream .block.social span a
+  font-size 1rem
+  font-weight 400
+  line-height 200%
+
+.stream .block.news span,
+.stream .block.news span a
+  font-family 'Mercury SSm A', 'Mercury SSm B', 'MercuryTextG2', serif
+
+.stream-container
+  position relative
+  .stream-nav
+    position absolute
+    z-index 2
+    top calc(50% - 5.2rem)
+    @media screen and (max-width:grid-mobile-width)
+      top 70px
+    right -10.666666666666667rem
+    left -10.666666666666667rem
+    display block
+    width 10.666666666666667rem
+    height 10.666666666666667rem
+    transition all 100ms ease-in-out
+    opacity 0
+    border-radius 50%
+    background-color #fff
+  &:hover
+    .stream-nav
+      opacity .6
+      &:hover
+        cursor pointer
+        opacity .7
+      &.left
+        right auto
+        left -5.33333333333333rem
+      &.right
+        right -5.33333333333333rem
+        left auto
+    .stream
+      height 36rem
+      @media screen and (max-width:grid-mobile-width)
+        height 28rem
+
+.stream,
+.stream li,
+.stream .block
+  max-height 36rem
+
+
+
+.testimonial-container
+  padding 100px 0
+  background-color #b2ddd4
+  p
+    color dark
+    text-align left
+    strong
+      color #2c3e51
+  .arrow-container
+    margin-top 50px
+    @media screen and (max-width:grid-tablet-width)
+      margin-top 300px
+    @media screen and (max-width:grid-mobile-width)
+      margin-top 600px
+  .header
+    margin-bottom 90px
+
+.testimonials
+  position relative
+  min-height 200px
+
+.testimonial
+  padding 40px
+  width 90%
+  max-width 1200px
+  margin auto
+  position absolute
+  left 0
+  top 0
+  bottom 0
+  right 0
+  clear both
+  opacity 0
+  display block
+  height 300px
+  cursor pointer
+  transition: all 200ms ease-in-out;
+  strong
+    font-size 26px
+    font-weight normal
+  .text
+    margin-top 30px
+    vertical-align top
+    font-size 1.1em
+
+.center-container 
+  a
+    display inline-block
+    float left
+    margin-right 50px
+    img
+      width 200px
+      height 200px
+      border-radius 50%
+      margin-bottom 30px
+    @media screen and (max-width:grid-mobile-width)
+      float none
+      margin 0 auto
+  @media screen and (max-width:grid-mobile-width)
+    width 100%
+    text-align center
+    height 220px
+
+.home-bigbuttons
+  &.section
+    padding 40px 20px
+    div
+      &.bigbuttons-text
+        font-size 16px
+        li
+          margin 20px 3px
+          text-align center
+          width 270px
+          .home-stats-num
+            color #e5e5e5
+          &:nth-of-type(4)
+            width 400px
+            @media screen and (max-width:grid-mobile-width)
+              width 270px            
+        .count
+          font-size 2.3em
+        bluetext
+          font-size 26px
+          color lightblue
+          vertical-align top
+          margin-top 12px
+        h2
+          display inline
+          font-weight bold
+#map_wrapper
+  height 800px
+
+#map_canvas
+  width 100%
+  height 100%
+.open-panel
+  display none
+  @media screen and (max-width:grid-mobile-width)
+    margin 0 0 50px 0
+  margin 0 50px 50px 30px
+  border 1px solid #e5e5e5
+  background-color #fff
+  color #333
+  padding 20px
+  ul
+    text-align left
+.sponsors
+  text-align center
+  margin 100px 0
+  div
+    display inline-block
+    width 300px
+    margin 30px 80px
+    &.srcd-container
+      width 430px
+      margin 80px 30px
+      @media screen and (max-width:grid-mobile-width)
+        width 200px
+        margin 20px 10px
+    @media screen and (max-width:grid-mobile-width)
+      width 210px
+      margin 20px 10px
+    vertical-align middle
+    position relative
+    a
+      display block
+    img
+      width 100%
+      height auto
+    span
+      position absolute
+      left 110px
+      @media screen and (max-width:grid-mobile-width)
+        position relative
+        left 0
+    &:nth-of-type(3)
+      span
+        top 58px
+        @media screen and (max-width:grid-mobile-width)
+          top 0
+    &:nth-of-type(4)
+      span
+        top 48px
+        @media screen and (max-width:grid-mobile-width)
+          top 0

@@ -1,0 +1,82 @@
+// styles
+
+.validator-input
+  position relative
+
+  input
+    padding-right 21px
+
+  .validator-indicator
+    position absolute
+    size b3 * 2
+    top b3
+    right b8
+    display none
+
+    img
+      display none
+
+    &.show
+      display block
+
+      &.invalid
+        background-color red
+
+        img.validator-invalid
+          display block
+
+      &.valid
+        background-color green
+
+        img.validator-valid
+          display block
+
+.validator-messages
+  position relative
+
+.validator-message
+  position absolute
+  background-color white
+  left 0
+  right 0
+  bottom b3
+  border-radius b6
+  box-shadow box-shadow-def
+  padding f6
+  font-size .75
+  line-height .75
+  z-index 2000
+  &.error
+    background-color red51
+  &.error:after
+    border-top-color red51
+
+  &:after,
+  &:before
+    content ""
+    size 0
+    left b1 + b12
+    border b4 solid transparent
+    position absolute
+    pointer-events none
+
+  &:after
+    border-top-color white
+    bottom -b2
+
+  &:before
+    border-top-color gray
+    bottom -b2 - 1px
+
+.validator-server
+  color red
+
+.validator-client
+  color red
+
+.validator-tip
+  color green
+
+.login-form
+  .validator-input
+    width 250px

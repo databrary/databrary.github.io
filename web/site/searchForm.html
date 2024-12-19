@@ -1,0 +1,4 @@
+<ng-form isolate>
+  <select class="search-select" ng-model="type" ng-options="t as d for (t, d) in ::types"/>
+  <input class="search-input" type="search" ng-model="query" key-enter="search()"/>
+</ng-form>

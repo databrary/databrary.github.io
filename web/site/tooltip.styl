@@ -1,0 +1,76 @@
+// vars
+
+round = 15px
+point = 0
+
+// mixins
+
+tooltip-color(color)
+  color color
+  border-color mix(color, gray, 75%)
+
+  a
+    &:link, &.link,
+    &:visited, &.visited
+      color mix(color, black, 75%)
+
+    &:hover, &.hover
+      color mix(color, gray, 75%)
+
+    &:active, &.active
+      color mix(color, pale, 75%)
+
+// styles
+
+.tooltip
+  position absolute
+  z-index 2000
+  opacity 0
+  background-color white
+  border-radius b6
+  box-shadow box-shadow-def
+  padding f6
+  font-line f34 f34
+  max-width 12
+
+  &.tooltip-visible
+    opacity 1
+
+  &:after
+  &:before
+    content ""
+    size 0
+    border b4 solid transparent
+    position absolute
+    pointer-events none
+
+.tooltip-blue
+  tooltip-color(blue)
+
+.tooltip-left
+  &:after
+  &:before
+    right 20px - b4
+
+.tooltip-right
+  &:after
+  &:before
+    left 20px - b4
+
+.tooltip-top
+  &:after
+    border-top-color white
+    bottom -b2
+
+  &:before
+    border-top-color gray
+    bottom -b2 - 1px
+
+.tooltip-bottom
+  &:after
+    border-bottom-color white
+    top -b2
+
+  &:before
+    border-bottom-color gray
+    top -b2 - 1px
