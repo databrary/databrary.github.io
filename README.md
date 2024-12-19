@@ -1,2 +1,2 @@
 # databrary.github.io
-Static redirect site
+Static redirect site.
