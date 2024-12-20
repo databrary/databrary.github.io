@@ -8,6 +8,9 @@
             .accessible-hidden {position: absolute !important;left: -10000px !important;top: auto !important;width: 1px;height: 1px;overflow: hidden !important;z-index: -999 !important;}
 
             .main {text-align: center;margin-bottom: 36px;}
+            
+            .main p:first-child {font-size: 1.4em;}
+
             .site-footer {border-top: 1px solid #ccc;padding-top: 24px;padding-bottom: 24px;overflow: hidden;display: block;}
 
             .row {margin-left: -1%;margin-right: -1%;zoom: 1;}
